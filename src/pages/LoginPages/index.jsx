@@ -19,12 +19,16 @@ const LoginPage = () => {
 
     return (
         <section>
-            <div id="login" className="login-screen" >
-                <div classe="text-align" className="login-text">
-                    <h1>ARCADE QUESTION</h1>
-                    <p>O Arcade Question ajuda você a gamificar suas aulas e compartilhar ideias</p>
+            <div id="login" classe="login" >
+                <div  className="login-logo">             
+                    <div>                    
+                        <h1>ARCADE QUESTION</h1> 
+                    </div>
+                    <div>
+                        <p>O Arcade Question ajuda você a gamificar <br/>suas aulas e compartilhar ideias</p>
+                    </div>          
                 </div >
-                    
+                <div className="login-inputs">
                     <h1 className="title">ARCADE QUESTION</h1>
                     <p>{String(authenticated)}</p>
                     <form className="login-form" onSubmit={handleSubmit}>
@@ -62,6 +66,7 @@ const LoginPage = () => {
                         </div>
                     </form>
                 </div>
+            </div>
         </section>
     );
 }

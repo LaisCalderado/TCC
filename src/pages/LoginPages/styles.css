@@ -1,10 +1,17 @@
 #login {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     padding: 0 2rem;
+    width: 100%;
+}
+
+.login-logo {
+    align-items: center;
+    justify-content: center; 
+    width: 30%;
+    height: 30%;
 }
 
 .login-screen {
@@ -56,12 +63,6 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-}
-.login-button:hover {background-color: #9400D3}
-
-.login-error {
-    color: red;
-    margin-top: 10px;
 }
 
 #login .field{
