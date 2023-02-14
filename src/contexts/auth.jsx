@@ -55,7 +55,12 @@ export const AuthProvider = ({children}) => {
         navigate("/login");
     };
 
+    const profile = () => {
+        navigate("/profile");
+
+    }
+
     return (
-        <AuthContext.Provider value={{authenticated: !!user, user, loading, login, logout}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{authenticated: !!user, user, loading, login, logout, profile}}>{children}</AuthContext.Provider>
     );
 };

@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
 
-import { 
+import {
     BrowserRouter as Router, 
     Route,
     Routes,
     Navigate,
 } from "react-router-dom";
-        
+
 import LoginPage from './pages/LoginPages';
 import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 
 import { AuthProvider, AuthContext } from "./contexts/auth";
 
@@ -32,6 +33,7 @@ const AppRoutes = () =>{
                 <Routes>
                     <Route exact path ="login" element={<LoginPage/>}/>
                     <Route exact path ="/" element={<Private><HomePage/></Private>}/>
+                    <Route exact path="/profile" element={<ProfilePage/>}/>
                 </Routes>
             </AuthProvider>
         </Router>
