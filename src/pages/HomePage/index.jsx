@@ -32,11 +32,10 @@ const HomePage = () => {
                 <div className="container">
                     <h1>Home</h1>
                     <p>Welcome to the home page!</p>
+                    <p>{String(authenticated)}</p>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
             </div>
-            <h1>HomePage</h1>
-            <p>{String(authenticated)}</p>
-            <button onClick={handleLogout}>Logout</button>
 
             <div>
                 <h1>Welcome to my App</h1>

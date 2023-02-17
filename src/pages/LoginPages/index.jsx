@@ -61,8 +61,10 @@ const LoginPage = () => {
                             <button type="submit" className="login-button">Entrar</button>
                         </div>
                         <div>
-                        <button type="button" className="facebook-button">Login with Facebook</button>
-                        <button type="button" className="google-button">Login with Google</button>
+                            <button type="button" className="facebook-button">Login with Facebook</button>
+                        </div>
+                        <div>
+                            <button type="button" className="google-button">Login with Google</button>
                         </div>
                     </form>
                 </div>
