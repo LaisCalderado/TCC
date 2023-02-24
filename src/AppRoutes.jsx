@@ -10,6 +10,7 @@ import {
 import LoginPage from './pages/LoginPages';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
+import ProjectsPage from './pages/ProjectsPage';
 
 import { AuthProvider, AuthContext } from "./contexts/auth";
 
@@ -34,6 +35,7 @@ const AppRoutes = () =>{
                     <Route exact path ="login" element={<LoginPage/>}/>
                     <Route exact path ="/" element={<Private><HomePage/></Private>}/>
                     <Route exact path="/profile" element={<ProfilePage/>}/>
+                    <Route exact path="/projects" element={<ProjectsPage/>}/>
                 </Routes>
             </AuthProvider>
         </Router>

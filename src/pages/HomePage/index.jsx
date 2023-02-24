@@ -90,7 +90,7 @@ const HomePage = () => {
                             <Nav.Link href="/profile">Perfil</Nav.Link>
                         </Nav>
                         <Nav className="me-auto">
-                            <Button type="button" class="btn btn-outline-primary">Criar Projeto</Button>
+                            <Button type="button" class="btn btn-outline-primary" href="/projects">Criar Projeto</Button>
                         </Nav>
                         <Nav>
                             <Form class="form-inline mr-2 mr-sm-0 form-row align-items-center">
@@ -134,7 +134,7 @@ const HomePage = () => {
                     <p className="centralizard">Projetos relacionados ao tema selecionados para você</p>
                     <p className="centralizard">{String(authenticated)}</p>
                     <button onClick={handleLogout}>Logout</button>
-                    <h1>Welcome to Arcade Question</h1>
+                    <h1>Welcome to Arcade</h1>
                 </div>
             </div>
             <div className="container" id="container-home">
