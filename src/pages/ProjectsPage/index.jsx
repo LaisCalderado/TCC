@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from '../../components/Navbar';
-import './style.css';
+import Navbar from "../../components/Navbar";
+import "./style.css";
 
 const projects = [
   {
@@ -34,7 +34,6 @@ const Project = ({ project, onDelete }) => {
 
   return (
     <>
-
       <div className="project">
         <div
           className="project-image"
@@ -54,6 +53,9 @@ const Project = ({ project, onDelete }) => {
 
 const ProjectsPage = () => {
   const [projectsList, setProjectsList] = useState(projects);
+  const [newProjectTitle, setNewProjectTitle] = useState("");
+  const [newProjectDescription, setNewProjectDescription] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   const handleDeleteProject = (id) => {
     const updatedProjectsList = projectsList.filter(
@@ -62,17 +64,23 @@ const ProjectsPage = () => {
     setProjectsList(updatedProjectsList);
   };
 
-  const handleCreateProject = () => {
+  const handleCreateProject = (event) => {
+    event.preventDefault();
+
     const newProject = {
       id: Date.now(),
-      title: "New Project",
-      description: "This is a new project",
+      title: newProjectTitle,
+      description: newProjectDescription,
       views: 0,
       likes: 0,
       imageUrl: "https://picsum.photos/200/300",
     };
+
     const updatedProjectsList = [...projectsList, newProject];
     setProjectsList(updatedProjectsList);
+    setNewProjectTitle("");
+    setNewProjectDescription("");
+    setShowForm(false);
   };
 
   return (
@@ -88,10 +96,37 @@ const ProjectsPage = () => {
               onDelete={() => handleDeleteProject(project.id)}
             />
           ))}
-          <div className="project create" onClick={handleCreateProject}>
-            <span>+</span>
-            <p>Criar novo Projeto</p>
-          </div>
+          {!showForm && (
+            <div className="project create" onClick={() => setShowForm(true)}>
+              <span>+</span>
+              <p>Criar novo Projeto</p>
+            </div>
+          )}
+          {showForm && (
+            <div className="project create">
+              <form onSubmit={handleCreateProject}>
+                <input
+                  type="text"
+                  placeholder="Nome do Projeto"
+                  value={newProjectTitle}
+                  onChange={(e) => setNewProjectTitle(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Descrição do projeto"
+                  value={newProjectDescription}
+                  onChange={(e) => setNewProjectDescription(e.target.value)}
+                  required
+                />
+                <button type="submit">Criar Projeto</button>
+                <button type="button" onClick={() => setShowForm(false)}>
+                  Cancelar
+                </button>
+              </form>
+            </div>
+          )}
+
         </div>
       </div>
     </>
