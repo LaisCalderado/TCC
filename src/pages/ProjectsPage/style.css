@@ -56,11 +56,72 @@ h1 {
   }
   
   .project-content button {
-    background-color: #007bff;
+    background-color: #00aaff;
     color: #fff;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
     margin-top: 10px;
+  }
+  .project.create {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid #9b4dca;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .project.create:hover {
+    background-color: #e467fa;
+    color: #fff;
+  }
+  
+  .project.create span {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #9b4dca;
+  }
+  
+  .project.create p {
+    margin: 0;
+    color: #9b4dca;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .project.create input[type="text"] {
+    border: 2px solid #9b4dca;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .project.create button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .project.create button:hover {
+    background-color: #3b8e41;
+  }
+  
+  .project.create button:last-child {
+    background-color: #9b4dca;
+  }
+  
+  .project.create button:last-child:hover {
+    background-color: #723d8c;
   }
   
