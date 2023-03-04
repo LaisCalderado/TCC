@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Navbar from '../../components/Navbar';
 
 function ProfileScreen(props) {
     const [name, setName] = useState(props.name);
@@ -33,43 +34,47 @@ function ProfileScreen(props) {
     };
 
     return (
-        <div id="profile" classe="profile" >
-            <h1>Profile</h1>
-            {isEditing ? (
-                <div className="profile">
-                    <div className="field">
-                        <label>
-                            Name:
-                            <input type="text" value={name} onChange={handleNameChange} />
-                        </label>
-                    </div>
-                    <div>
+        <>
+            <Navbar/>
+            <div id="profile" classe="profile" >
+                <h1>Profile</h1>
+                {isEditing ? (
+                    <div className="profile">
+                        <div className="field">
+                            <label>
+                                Name:
+                                <input type="text" value={name} onChange={handleNameChange} />
+                            </label>
+                        </div>
+                        <div>
 
-                        <label>
-                            Bio:
-                            <textarea value={bio} onChange={handleBioChange} />
-                        </label>
-                    </div>
-                    <div>
+                            <label>
+                                Bio:
+                                <textarea value={bio} onChange={handleBioChange} />
+                            </label>
+                        </div>
+                        <div>
 
-                        <label>
-                            Profile Picture:
-                            <input type="text" value={profilePicture} onChange={handleProfilePictureChange} />
-                        </label>
+                            <label>
+                                Profile Picture:
+                                <input type="text" value={profilePicture} onChange={handleProfilePictureChange} />
+                            </label>
+                        </div>
+                        <br />
+                        <button onClick={handleSaveProfile}>Save Profile</button>
+                        <button onClick={handleCancelEdit}>Cancel</button>
                     </div>
-                    <br />
-                    <button onClick={handleSaveProfile}>Save Profile</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
-                </div>
-            ) : (
-                <div>
-                    <img src={profilePicture} alt="Profile Picture" />
-                    <h2>{name}</h2>
-                    <p>{bio}</p>
-                    <button onClick={() => setIsEditing(true)}>Edit Profile</button>
-                </div>
-            )}
-        </div>
+                ) : (
+                    <div>
+                        <img src={profilePicture} alt="Profile Picture" />
+                        <h2>{name}</h2>
+                        <p>{bio}</p>
+                        <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+                    </div>
+                )}
+            </div>
+        </>
+        
     );
 }
 

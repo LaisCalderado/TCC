@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from '../../components/Navbar';
 import './style.css';
 
 const projects = [
@@ -32,19 +33,22 @@ const Project = ({ project, onDelete }) => {
   const { title, description, views, likes, imageUrl } = project;
 
   return (
-    <div className="project">
-      <div
-        className="project-image"
-        style={{ backgroundImage: `url(${imageUrl})` }}
-      />
-      <div className="project-content">
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <p>Views: {views}</p>
-        <p>Likes: {likes}</p>
-        <button onClick={onDelete}>Deletar Projeto</button>
+    <>
+
+      <div className="project">
+        <div
+          className="project-image"
+          style={{ backgroundImage: `url(${imageUrl})` }}
+        />
+        <div className="project-content">
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <p>Views: {views}</p>
+          <p>Likes: {likes}</p>
+          <button onClick={onDelete}>Deletar Projeto</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -72,22 +76,25 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div className="ProjectsPage">
-      <h1>Meus Projetos</h1>
-      <div className="projects-list">
-        {projectsList.map((project) => (
-          <Project
-            key={project.id}
-            project={project}
-            onDelete={() => handleDeleteProject(project.id)}
-          />
-        ))}
-        <div className="project create" onClick={handleCreateProject}>
-          <span>+</span>
-          <p>Criar novo Projeto</p>
+    <>
+      <Navbar />
+      <div className="ProjectsPage">
+        <h1>Meus Projetos</h1>
+        <div className="projects-list">
+          {projectsList.map((project) => (
+            <Project
+              key={project.id}
+              project={project}
+              onDelete={() => handleDeleteProject(project.id)}
+            />
+          ))}
+          <div className="project create" onClick={handleCreateProject}>
+            <span>+</span>
+            <p>Criar novo Projeto</p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
