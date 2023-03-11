@@ -1,12 +1,52 @@
-import React, { useState, useContext } from "react";
-import { Carousel } from 'react-bootstrap';
+import React, { useState, useContext, useEffect  } from "react";
 import { AuthContext } from "../../contexts/auth";
-import Navbar from '../../components/Navbar';
 import { Link } from "react-router-dom";
+import 'react-alice-carousel/lib/alice-carousel.css';
+import $ from 'jquery';
+
+import Navbar from '../../components/Navbar';
+import Carousel from "../../components/Carousel";
+import './style.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css';
+
 //const subjectColors = ["#F94144", "#F3722C", "#F8961E", "#F9844A", "#F9C74F", "#90BE6D", "#43AA8B", "#4D908E", "#577590",];
+
+const itemsPerSlide = 5;
+let currentSlide = 0;
+
+function showSlides() {
+  let firstItemIndex = currentSlide * itemsPerSlide;
+  let lastItemIndex = firstItemIndex + itemsPerSlide - 1;
+
+   // Hide all items
+   $('.carousel-item').hide();
+
+   // Show items in the current slide
+   $('.carousel-item').slice(firstItemIndex, lastItemIndex + 1).show();
+ 
+   // Update slide indicators
+   $('.carousel-indicators li').removeClass('active');
+   $('.carousel-indicators li').eq(currentSlide).addClass('active');
+}
+
+$(document).ready(function(){
+  // Initialize slides
+  showSlides();
+
+  // Handle prev/next slide buttons
+  $('.carousel-control-prev').click(function(){
+    currentSlide = Math.max(currentSlide - 1, 0);
+    showSlides();
+  });
+  $('.carousel-control-next').click(function(){
+    let numItems = $('.carousel-item').length;
+    let lastSlide = Math.floor(numItems / itemsPerSlide);
+    currentSlide = Math.min(currentSlide + 1, lastSlide);
+    showSlides();
+  });
+});
+
 const subjects = [
     {
         id: 1,
@@ -64,13 +104,14 @@ const subjects = [
 const Project = ({ title, backgroundImage, description, views, likes }) => {
     return (
       <div className="project">
-        <div className="project-background" style={{ backgroundImage: `url(${backgroundImage})` }}></div>
-        <div className="project-content">
-          <h2 className="project-title">{title}</h2>
-          <p className="project-description">{description}</p>
-          <div className="project-stats">
-            <p className="project-views">{views} views</p>
-            <p className="project-likes">{likes} likes</p>
+        <div className="project-background" style={{ backgroundImage: `url(${backgroundImage})` }}>
+          <div className="project-content">
+            <h2 className="project-title">{title}</h2>
+            <p className="project-description">{description}</p>
+            <div className="project-stats">
+              <p className="project-views">{views} views</p>
+              <p className="project-likes">{likes} likes</p>
+            </div>
           </div>
         </div>
       </div>
@@ -88,10 +129,41 @@ const HomePage = () => {
     const handleSelect = (selectedIndex, e) => {
       setIndex(selectedIndex);
     };
-    
+    const [projects, setProjects] = useState([]);
+    useEffect(() => {
+      // buscar dados do servidor e definir o estado dos projetos
+      const projectsData = [
+        {
+          title: "Project 1",
+          backgroundImage: "https://via.placeholder.com/500x300/ff0000/ffffff",
+          description: "This is the first project",
+          views: 10,
+          likes: 5,
+        },
+        {
+          title: "Project 2",
+          backgroundImage: "https://via.placeholder.com/500x300/00ff00/ffffff",
+          description: "This is the second project",
+          views: 20,
+          likes: 10,
+        },
+        {
+          title: "Project 3",
+          backgroundImage: "https://via.placeholder.com/500x300/0000ff/ffffff",
+          description: "This is the third project",
+          views: 30,
+          likes: 15,
+        },
+        {
+          title: "Project 4",
+
+        },
+      ];
+      setProjects(projectsData);
+    }, []);
+
     const [projectDetails, setProjectDetails] = useState(null);
     const handleCreateProject = () => {
-      // Aqui você deve adicionar a lógica para criar o projeto e obter suas informações
       const project = {
         title: 'Meu projeto',
         backgroundImage: 'https://exemplo.com/imagem.jpg',
@@ -107,51 +179,30 @@ const HomePage = () => {
         <>
           <Navbar />
           <div className="container" id="container-home">
-            <div id="div-home" className="container">
-              <Carousel 
-                activeIndex={index} 
-                onSelect={handleSelect}>
-                {subjects.map((subject) => (
-                  <Carousel.Item key={subject.id}>
-                    <Link to={subject.route}>
-                      <img className="d-block w-100" src={subject.imageSrc} alt={subject.title} />
-                    </Link>
-                  </Carousel.Item>
-                ))}
-              </Carousel>
+            <div id="div-home" className="border border-dark">
+            <Carousel subjects={subjects} />
             </div>
-            <div className="border border-dark" id="div-home">
+            <div id="div-home">
               <h1 className="centralizard">Projetos de Gameficação</h1>
               <p className="centralizard">Projetos relacionados ao tema selecionados para você</p>
               <p className="centralizard">{String(authenticated)}</p>
-              <button onClick={handleLogout}>Logout</button>
-              <h1>Welcome to Arcade</h1>
-            </div>
-          </div>
-          <div className="container" id="container-home">
-            <div className="home-page">
-              <div className="project-list">
-                <Project
-                  title="Project 1"
-                  backgroundImage="https://via.placeholder.com/500x300/ff0000/ffffff"
-                  description="This is the first project"
-                  views={10}
-                  likes={5}
-                />
-                <Project
-                  title="Project 2"
-                  backgroundImage="https://via.placeholder.com/500x300/00ff00/ffffff"
-                  description="This is the second project"
-                  views={20}
-                  likes={10}
-                />
-                <Project
-                  title="Project 3"
-                  backgroundImage="https://via.placeholder.com/500x300/0000ff/ffffff"
-                  description="This is the third project"
-                  views={30}
-                  likes={15}
-                />
+              <h1 className="centralizard">Welcome to Arcade</h1>
+              <div className="container" id="container-home">
+                <div className="home-page">
+                  <div className="project-list">
+                    {projects.map((project, index) => (
+                      <Project key={index} 
+                      title={project.title}
+                      backgroundImage={project.backgroundImage}
+                      description={project.description}
+                      views={project.views}
+                      likes={project.likes}
+                      />
+                    ))}
+
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>

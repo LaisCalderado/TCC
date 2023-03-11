@@ -1,0 +1,38 @@
+/*Carosuel*/
+
+.custom-carousel .alice-carousel__item {
+    border: 1px solid black;
+    width: 100px;
+  }
+  
+  .carousel-subject {
+    width: 300px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    border: black;
+  }  
+  .custom-carousel {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    white-space: nowrap; 
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .custom-carousel-item {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    flex: 0 0 auto;
+    margin-right: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .custom-carousel-item:focus {
+    outline: none;
+  }
