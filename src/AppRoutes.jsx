@@ -13,6 +13,7 @@ import ProfilePage from './pages/ProfilePage';
 import ProjectsPage from './pages/ProjectsPage';
 import MathPage from './pages/MathPage';
 import EnglishPage from './pages/EnglishPage';
+import RegisterPage from './pages/RegisterPage';
 
 import { AuthProvider, AuthContext } from "./contexts/auth";
 
@@ -40,6 +41,7 @@ const AppRoutes = () =>{
                     <Route exact path="/projects" element={<ProjectsPage/>}/>
                     <Route exact path="/math" element={<MathPage/>}/>
                     <Route exact path="/english" element={<EnglishPage/>}/>
+                    <Route exact path="/register" element={<RegisterPage/>}/>
                 </Routes>
             </AuthProvider>
         </Router>
