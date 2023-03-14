@@ -23,3 +23,4 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 export { auth, onAuthStateChanged, createUserWithEmailAndPassword };
+export const signOut = () => auth.signOut();
