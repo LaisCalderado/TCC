@@ -22,10 +22,10 @@ const NavBar = () => {
                         <Nav.Link href="/profile">Perfil</Nav.Link>
                     </Nav>
                     <Nav className="me-auto">
-                        <Button type="button" class="btn btn-outline-primary" href="/projects">Criar Projeto</Button>
+                        <Button type="button" className="btn btn-outline-primary" href="/projects">Criar Projeto</Button>
                     </Nav>
                     <Nav>
-                        <Form class="form-inline mr-2 mr-sm-0 form-row align-items-center">
+                        <Form className="form-inline mr-2 mr-sm-0 form-row align-items-center">
                             <FormControl type="text" placeholder="Search" className="mr-sm-0" />
                             <Button variant="outline-info">Search</Button>
                         </Form>
@@ -36,7 +36,7 @@ const NavBar = () => {
                             <NavDropdown.Item href="#action/3.2">Another action </NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <button class="dropdown-item" onClick={handleLogout}>Sair</button>
+                            <button className="dropdown-item" onClick={handleLogout}>Sair</button>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

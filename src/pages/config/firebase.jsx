@@ -1,5 +1,5 @@
-import {initializeApp} from "firebase/app"
-import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword} from "firebase/auth"
+import { initializeApp } from "firebase/app"
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth"
 
 const firebaseConfig = {
     apiKey: "AIzaSyDPlHhrai-OYE3YnKdd67CyZb_ula49uKM",
@@ -15,4 +15,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export {auth, onAuthStateChanged, createUserWithEmailAndPassword};
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // usuário autenticado
+    } else {
+        // usuário não autenticado
+    }
+});
+export { auth, onAuthStateChanged, createUserWithEmailAndPassword };
