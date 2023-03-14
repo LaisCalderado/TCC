@@ -34,60 +34,59 @@ const LoginPage = () => {
 
     const handleRegister = () => {
         window.location.href = "/register"; // Redireciona para a página de registro
-      };
+    };
+    return (
+        <section>
+            <div className="container py-5 h-100">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col-xl-10">
+                        <div className="card rounded-3 text-black">
+                            <div className="row g-0">
+                                <div className="col-lg-6">
+                                    <div className="card-body p-md-5 mx-md-4">
 
-return (
-    <section>
-        <div id="login" className="login" >
-            <div className="login-logo">
-                <div>
-                    <h1>ARCADE QUESTION</h1>
-                </div>
-                <div>
-                    <p>O Arcade Question ajuda você a gamificar <br />suas aulas e compartilhar ideias</p>
-                </div>
-            </div >
-            <div className="login-inputs">
-                <h1 className="title">ARCADE QUESTION</h1>
-                <p>{String(authenticated)}</p>
-                <form className="login-form" onSubmit={handleLogin}>
-                    <div className="field">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            name="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="login-input"
-                        />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="password">Senha</label>
-                        <input
-                            type="password"
-                            placeholder="Senha"
-                            name="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="login-input"
-                        />
-                    </div>
-                    <div className="actions">
-                        <button type="submit" className="login-button">Entrar</button>
-                    </div>
-                    <div>
-                        <button onClick={handleRegister} className="register-button">Cadastrar</button>
-                    </div>
-                </form>
-                {error && <div>{error}</div>}
+                                        <div className="text-center">
+                                            <h1 className="mt-1 mb-5 pb-1">ARCADE QUESTION</h1>
+                                            <p className="mb-5">O Arcade Question ajuda você a gamificar suas aulas e compartilhar ideias</p>
+                                        </div>
+                                        <form className="login-form" onSubmit={handleLogin}>
+                                            <div className="form-outline mb-4">
+                                                <label className="form-label" htmlFor="Email">Email</label>
+                                                <input type="email" id="email" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                            </div>
 
+                                            <div className="form-outline mb-4">
+                                                <label className="form-label" htmlFor="Password">Senha</label>
+                                                <input type="password" id="password" className="form-control" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                            </div>
+
+                                            <div className="text-center pt-1 mb-5 pb-1">
+                                                <button className="btn btn-primary form-control fa-lg gradient-custom-2 mb-3" type="button">Entrar</button>
+                                                <br />
+                                                <p className="mb-0 me-2">Não tem uma conta?</p>
+                                                <button type="button" className="btn btn-outline-danger " onClick={handleRegister}>Registrar</button>
+                                            </div>
+                                        </form>
+                                        {error && <div>{error}</div>}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                        <h4 class="mb-4">Somos mais que uma ferramente</h4>
+                                        <p class="small mb-0">"Imagine aprender de forma divertida e criativa! Com nossa ferramenta de gameficação,
+                                            você usa sua imaginação para aprender matérias decorativas de maneira fácil e prazerosa.
+                                            Descubra como a imaginação pode ser sua aliada no processo de aprendizagem e se surpreenda com seus resultados.
+                                            Experimente agora mesmo!"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-);
+        </section>
+    )
 }
+
 
 export default LoginPage;
