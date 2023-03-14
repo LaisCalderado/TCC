@@ -32,7 +32,7 @@ const RegisterPage = () => {
             <form className="register-form" onSubmit={handleSignup}>
                 <h1>ARCADE QUESTION</h1>
                 <div className="field">
-                    <label htmlFor="email">Email</label>
+                    <label type="email">Email</label>
                     <input
                         className="register-input"
                         type="email"
@@ -43,7 +43,7 @@ const RegisterPage = () => {
                     />
                 </div>
                 <div className="field">
-                    <label htmlFor="password">Password</label>
+                    <label type="password">Password</label>
                     <input
                         className="register-input"
                         type="password"
