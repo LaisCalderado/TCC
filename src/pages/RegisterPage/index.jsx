@@ -60,7 +60,7 @@ const RegisterPage = () => {
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                <button className="register-button" type="submit">Entrar</button>
+                <button className="register-button" type="submit">Cadatrar</button>
                 <button onClick={handleHome} className="register-button">Home</button>
             </form>
             <h4>Usuário Logado:</h4>

@@ -1,45 +1,35 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut,
+    signInWithEmailAndPassword
 } from "firebase/auth";
-
 import { auth } from "../config/firebase";
-import { AuthContext } from "../../contexts/auth";
 
 import "./styles.css";
 
 const LoginPage = () => {
-    const { authenticated, login } = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const userCredential = await signInWithEmailAndPassword(
+            await signInWithEmailAndPassword(
                 auth,
                 email,
-                password,
+                password
             );
-            console.log(userCredential);
-            console.log(signInWithEmailAndPassword);
             navigate('/');
         } catch (error) {
-            setError(error.message);
-            setError("Error signing in with password and email!");
+            setError("Erro ao entrar com senha e e-mail!, Verifique seu Email e/ou Senha...");
         }
     };
 
     const handleRegister = () => {
-        window.location.href = "/register"; // Redireciona para a página de registro
+        navigate('/register');
     };
 
     return (
@@ -56,14 +46,15 @@ const LoginPage = () => {
                                             <h1 className="mt-1 mb-5 pb-1">ARCADE QUESTION</h1>
                                             <p className="mb-5">O Arcade Question ajuda você a gamificar suas aulas e compartilhar ideias</p>
                                         </div>
+
                                         <form className="login-form" onSubmit={handleLogin}>
                                             <div className="form-outline mb-4">
-                                                <label className="form-label" type="Email">Email</label>
+                                                <label className="form-label" htmlFor="email">Email</label>
                                                 <input type="email" id="email" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                             </div>
 
                                             <div className="form-outline mb-4">
-                                                <label className="form-label" type="Password">Senha</label>
+                                                <label className="form-label" htmlFor="password">Senha</label>
                                                 <input type="password" id="password" className="form-control" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
                                             </div>
 
@@ -74,6 +65,7 @@ const LoginPage = () => {
                                                 <button type="button" className="btn btn-outline-danger " onClick={handleRegister}>Registrar</button>
                                             </div>
                                         </form>
+
                                         {error && <div>{error}</div>}
                                     </div>
                                 </div>
