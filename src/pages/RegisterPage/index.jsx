@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { auth, createUserWithEmailAndPassword } from "../config/firebase";
+import { auth, 
+    createUserWithEmailAndPassword, 
+    onAuthStateChanged } from "../config/firebase";
 import "./styles.css";
 
 
 const RegisterPage = () => {
 
+    const [user, setUser] = useState({});
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    })
 
     const handleSignup = async (event) => {
         event.preventDefault();
@@ -56,6 +63,8 @@ const RegisterPage = () => {
                 <button className="register-button" type="submit">Entrar</button>
                 <button onClick={handleHome} className="register-button">Home</button>
             </form>
+            <h4>Usuário Logado:</h4>
+            {user?.email}
             {error && <div>{error}</div>}
         </div>
     );
