@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth, createUserWithEmailAndPassword } from "../config/firebase";
-
+import "./styles.css";
 
 
 const RegisterPage = () => {
@@ -25,24 +25,35 @@ const RegisterPage = () => {
 
     const handleHome = () => {
         window.location.href = "/"; // Redireciona para a página de registro
-      };
+    };
 
     return (
-        <div>
-            <form onSubmit={handleSignup}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-                <button type="submit">Entrar</button>
+        <div id="register">
+            <form className="register-form" onSubmit={handleSignup}>
+                <h1>ARCADE QUESTION</h1>
+                <div className="field">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        className="register-input"
+                        type="email"
+                        placeholder="Email"
+                        id="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
+                </div>
+                <div className="field">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        className="register-input"
+                        type="password"
+                        placeholder="Password"
+                        id="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
+                </div>
+                <button className="register-button" type="submit">Entrar</button>
                 <button onClick={handleHome} className="register-button">Home</button>
             </form>
             {error && <div>{error}</div>}
