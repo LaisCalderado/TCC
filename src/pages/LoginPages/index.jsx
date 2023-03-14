@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -17,6 +18,8 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -27,8 +30,11 @@ const LoginPage = () => {
                 password,
             );
             console.log(userCredential);
+            console.log(signInWithEmailAndPassword);
+            navigate('/');
         } catch (error) {
             setError(error.message);
+            setError("Error signing in with password and email!");
         }
     };
 
