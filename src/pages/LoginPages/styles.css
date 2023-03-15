@@ -1,5 +1,5 @@
 #login {
-    background-image: linear-gradient(45deg, #9fd1d2, #e366e5);
+    background: linear-gradient(45deg, #9fd1d2, #e366e5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,6 +9,7 @@
 }
 
 .login-logo {
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 30%;
@@ -20,7 +21,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    box-shadow: 0px 0px 0px #ccc;
+    box-shadow: 0 0 0 #ccc;
+    border-radius: 10px;
 }
 
 #login .form {
@@ -30,7 +32,8 @@
     background-color: #f1f1f1;
     width: 100%;
     max-width: 480px;
-    padding: 0.5rem;
+    padding: 1rem;
+    border-radius: 10px;
 }
 
 .login-input {
@@ -51,6 +54,17 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    
+}
+
+.login-button:hover {
+    background-color: #b700ba;
+    transform: scale(1.1);
+}
+
+.login-button:active {
+    transform: translateY(2px);
 }
 
 #login .field {
@@ -59,6 +73,8 @@
 
 #login .field label {
     display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
 #login .field input {
@@ -67,18 +83,12 @@
 
 #login .actions {
     text-align: center;
-    margin-top: 0.5rem;
-
+    margin-top: 1rem;
 }
 
 .gradient-custom-2 {
-    /* fallback for old browsers */
     background: #2a025b;
-
-    /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-linear-gradient(45deg, #2a025b, #b700ba);
-
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(45deg, #2a025b, #b700ba);
 }
 
@@ -95,16 +105,20 @@
     }
 }
 
-
-button.btn-outline-danger {
-    background-color: #fff;
-    border: none;
+.btn.btn-outline {
+    background-color: #b700ba;
     border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
     position: relative;
-    color: #ececec;
-    background-image: linear-gradient(45deg, #2a025b, #b700ba);
+    color: #000000;
     background-clip: padding-box;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+}
+
+.btn.btn-outline:hover {
+    transform: scale(1.1);
+    background-image: linear-gradient(45deg, #5208ac, #b700ba);
+    
 }

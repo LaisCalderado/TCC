@@ -1,16 +1,23 @@
+import { event } from "jquery";
 import React, { useState } from "react";
-import { auth, 
-    createUserWithEmailAndPassword, 
-    onAuthStateChanged } from "../config/firebase";
+import { useNavigate } from 'react-router-dom';
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged
+} from "../config/firebase";
+import { auth } from "../config/firebase";
+
 import "./styles.css";
 
 
 const RegisterPage = () => {
 
     const [user, setUser] = useState({});
+    const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
@@ -25,21 +32,29 @@ const RegisterPage = () => {
                 password
             );
             console.log(userCredential.user);
+            navigate('/'); // Redireciona para a página home
         } catch (error) {
             setError(error.message);
         }
     };
 
     const handleHome = () => {
-        window.location.href = "/"; // Redireciona para a página de registro
+        navigate('/'); // Redireciona para a página home
     };
 
     return (
         <div id="register">
             <form className="register-form" onSubmit={handleSignup}>
                 <h1>ARCADE QUESTION</h1>
+                <div className="field" >
+                    <input className="register-input"
+                            type="text" 
+                            placeholder="Nome" 
+                            id="nome" 
+                            value={nome} onChange={(event) => setNome(event.target.value)} 
+                    />
+                </div>
                 <div className="field">
-                    <label type="email">Email</label>
                     <input
                         className="register-input"
                         type="email"
@@ -50,7 +65,6 @@ const RegisterPage = () => {
                     />
                 </div>
                 <div className="field">
-                    <label type="password">Password</label>
                     <input
                         className="register-input"
                         type="password"
@@ -60,12 +74,9 @@ const RegisterPage = () => {
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                <button className="register-button" type="submit">Cadatrar</button>
-                <button onClick={handleHome} className="register-button">Home</button>
+                <button className="register-button" type="submit">Cadastrar</button>
+                <button onClick={handleHome} className="register-button">Voltar</button>
             </form>
-            <h4>Usuário Logado:</h4>
-            {user?.email}
-            {error && <div>{error}</div>}
         </div>
     );
 };

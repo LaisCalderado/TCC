@@ -59,10 +59,10 @@ const LoginPage = () => {
                                             </div>
 
                                             <div className="text-center pt-1 mb-5 pb-1">
-                                                <button className="btn btn-primary form-control fa-lg gradient-custom-2 mb-3" type="submit">Entrar</button>
+                                                <button className="login-button" type="submit">Entrar</button>
                                                 <br />
                                                 <p className="mb-0 me-2">Não tem uma conta?</p>
-                                                <button type="button" className="btn btn-outline-danger " onClick={handleRegister}>Registrar</button>
+                                                <button type="button" className="btn btn-outline " onClick={handleRegister}>Registrar</button>
                                             </div>
                                         </form>
 

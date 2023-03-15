@@ -1,4 +1,5 @@
 #register {
+  font-size: 14px;
   background-image: linear-gradient(45deg, #9fd1d2, #e366e5);
   display: flex;
   align-items: center;
@@ -30,28 +31,32 @@
   background-color: #f1f1f1;
   width: 100%;
   max-width: 480px;
-  padding: 0.5rem;
-  position: relative;
-  z-index: 1;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .register-input {
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+  font-size: 14px;
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .register-button {
-  width: 250px;
-  margin: 10px 0;
-  padding: 10px 20px;
+  font-size: 14px;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
   background-color: #800080;
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -62,14 +67,15 @@
 }
 
 #home-button {
-  width: 250px;
-  margin: 10px 0;
-  padding: 10px 20px;
-  background-color: #fff;
+  font-size: 14px;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: transparent;
   color: #800080;
   border: 2px solid #800080;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -84,7 +90,11 @@
 }
 
 #register .field label {
+  font-size: 14px;
   display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 #register .field input {
@@ -92,6 +102,7 @@
 }
 
 #register .actions {
+  font-size: 14px;
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
