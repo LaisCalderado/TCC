@@ -10,19 +10,16 @@ function ProfileScreen(props) {
     const [isEditing, setIsEditing] = useState(false);
     const [showFriends, setShowFriends] = useState(true);
     const [showActivityFeed, setShowActivityFeed] = useState(true);
-
     const [friends, setFriends] = useState([
         { name: 'Chico Preto', profilePicture: 'https://via.placeholder.com/150' },
         { name: 'Maria Rosa', profilePicture: 'https://via.placeholder.com/150' },
         { name: 'Paula Pedrita', profilePicture: 'https://via.placeholder.com/150' },
     ]);
-
     const [activityFeed, setActivityFeed] = useState([
         { message: 'Started following Jane Doe', timestamp: new Date('2023-02-12T09:00:00Z') },
         { message: 'Added new project: "React App"', timestamp: new Date('2023-02-11T12:30:00Z') },
         { message: 'Liked Lais Calderado\'s post', timestamp: new Date('2023-02-10T18:15:00Z') },
     ]);
-
     const [portfolio, setPortfolio] = useState([
         { name: 'React App', description: 'A web application built with React', imageUrl: 'https://via.placeholder.com/150' },
         { name: 'Node.js Server', description: 'A simple Node.js server', imageUrl: 'https://via.placeholder.com/150' },
@@ -58,7 +55,7 @@ function ProfileScreen(props) {
             <Navbar />
             <div id="profile" className="profile">
                 <h1>Profile</h1>
-                {isEditing? (
+                {isEditing ? (
                     <div className="profile-form">
                         <div className="field">
                             <label>
@@ -75,15 +72,15 @@ function ProfileScreen(props) {
                         <div className="field">
                             <label>
                                 Profile Picture:
-                                <input type="text" value={profilePicture} onChange={handleProfilePictureChange}/>
+                                <input type="text" value={profilePicture} onChange={handleProfilePictureChange} />
                             </label>
                         </div>
                         <br />
                         <button onClick={handleSaveProfile}>Save Profile</button>
-                        <button className="cancel-button" onChange={handleCancelEdit}>Cancel</button>
+                        <button className="cancel-button" onClick={handleCancelEdit}>Cancel</button>
                     </div>
-                    ) : (
-                        <>
+                ) : (
+                    <>
                         <div className="profile-summary">
                             <img src={profilePicture} alt="Profile" className="profile-picture" />
                             <div className="profile-info">
@@ -139,9 +136,9 @@ function ProfileScreen(props) {
                                     <span>Mostrar minha lista de amigos</span>
                                     <input type="checkbox" checked={true} />
                                 </div>
-                                <div className="className="privacy-option>
+                                <div className="className=" privacy-option>
                                     <span>Show my activity feed:</span>
-                                    <input type="checkbox" checked={true} />        
+                                    <input type="checkbox" checked={true} />
                                 </div>
                                 <div className="privacy-option">
                                     <span>Show my portfolio:</span>
@@ -149,9 +146,9 @@ function ProfileScreen(props) {
                                 </div>
                             </div>
                         </div>
-                        
-                        </>
-                    )}
+
+                    </>
+                )}
             </div>
         </>
     );
@@ -164,8 +161,8 @@ ProfileScreen.propTypes = {
 };
 
 ProfileScreen.defaultProps = {
-    name: 'Lais Calderado',
-    bio: 'Web Developer',
+    name: 'Nome',
+    bio: 'Bio',
     profilePicture: 'https://via.placeholder.com/150',
 };
 
