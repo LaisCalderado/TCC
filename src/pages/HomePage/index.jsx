@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { auth } from "../config/firebase";
-import { Link } from "react-router-dom";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import $ from 'jquery';
 
@@ -110,16 +109,6 @@ const subjects = [
 const HomePage = () => {
   
   const [projects, setProjects] = useState([]);
-  
-  const { authenticated, logout } = useContext(AuthContext);
-  const handleLogout = () => {
-    logout();
-  };
-
-  const [index, setIndex] = useState(0);
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
