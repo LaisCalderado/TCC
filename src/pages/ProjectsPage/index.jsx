@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import "./style.css";
@@ -97,36 +98,13 @@ const ProjectsPage = () => {
             />
           ))}
           {!showForm && (
-            <div className="project create" onClick={() => setShowForm(true)}>
-              <span>+</span>
-              <p>Criar novo Projeto</p>
-            </div>
-          )}
-          {showForm && (
             <div className="project create">
-              <form onSubmit={handleCreateProject}>
-                <input
-                  type="text"
-                  placeholder="Nome do Projeto"
-                  value={newProjectTitle}
-                  onChange={(e) => setNewProjectTitle(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Descrição do projeto"
-                  value={newProjectDescription}
-                  onChange={(e) => setNewProjectDescription(e.target.value)}
-                  required
-                />
-                <button type="submit">Criar Projeto</button>
-                <button type="button" onClick={() => setShowForm(false)}>
-                  Cancelar
-                </button>
-              </form>
+              <Link to="/new-project">
+                <span>+</span>
+                <p>Criar novo Projeto</p>
+              </Link>
             </div>
           )}
-
         </div>
       </div>
     </>
