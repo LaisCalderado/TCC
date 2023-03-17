@@ -7,11 +7,10 @@ import $ from 'jquery';
 
 import Navbar from '../../components/Navbar';
 import Carousel from "../../components/Carousel";
+import Projects  from "../../components/Projects ";
 import './style.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-//const subjectColors = ["#F94144", "#F3722C", "#F8961E", "#F9844A", "#F9C74F", "#90BE6D", "#43AA8B", "#4D908E", "#577590",];
 
 const itemsPerSlide = 5;
 let currentSlide = 0;
@@ -108,25 +107,10 @@ const subjects = [
   },
 ];
 
-const Project = ({ title, backgroundImage, description, views, likes }) => {
-  return (
-    <div className="project">
-      <div className="project-background" style={{ backgroundImage: `url(${backgroundImage})` }}>
-        <div className="project-content">
-          <h2 className="project-title">{title}</h2>
-          <p className="project-description">{description}</p>
-          <div className="project-stats">
-            <p className="project-views">{views} views</p>
-            <p className="project-likes">{likes} likes</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-
 const HomePage = () => {
+  
+  const [projects, setProjects] = useState([]);
+  
   const { authenticated, logout } = useContext(AuthContext);
   const handleLogout = () => {
     logout();
@@ -149,52 +133,6 @@ const HomePage = () => {
     };
   }, []);
 
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    // buscar dados do servidor e definir o estado dos projetos
-    const projectsData = [
-      {
-        title: "Project 1",
-        backgroundImage: "https://via.placeholder.com/500x300/ff0000/ffffff",
-        description: "This is the first project",
-        views: 10,
-        likes: 5,
-      },
-      {
-        title: "Project 2",
-        backgroundImage: "https://via.placeholder.com/500x300/00ff00/ffffff",
-        description: "This is the second project",
-        views: 20,
-        likes: 10,
-      },
-      {
-        title: "Project 3",
-        backgroundImage: "https://via.placeholder.com/500x300/0000ff/ffffff",
-        description: "This is the third project",
-        views: 30,
-        likes: 15,
-      },
-      {
-        title: "Project 4",
-
-      },
-    ];
-    setProjects(projectsData);
-  }, []);
-
-  const [projectDetails, setProjectDetails] = useState(null);
-  const handleCreateProject = () => {
-    const project = {
-      title: 'Meu projeto',
-      backgroundImage: 'https://exemplo.com/imagem.jpg',
-      description: 'Descrição do meu projeto',
-      views: 10,
-      likes: 5,
-    };
-    setProjectDetails(project);
-  };
-
 
   return (
     <>
@@ -204,27 +142,10 @@ const HomePage = () => {
           <Carousel subjects={subjects} />
         </div>
         <div id="div-home">
-          <h1 className="centralizard">Projetos de Gameficação</h1>
-          <p className="centralizard">Projetos relacionados ao tema selecionados para você</p>
-          <p className="centralizard">{String(authenticated)}</p>
+          <h1 className="centralizard" id="title">Projetos de Gameficação</h1>
+          <p className="centralizard" id="sub-title">Projetos relacionados ao tema selecionados para você</p>
           <h1 className="centralizard">Welcome to Arcade</h1>
-          <div className="container" id="container-home">
-            <div className="home-page">
-              <div className="project-list">
-                {projects.map((project, index) => (
-                  <Project key={index}
-                    title={project.title}
-                    backgroundImage={project.backgroundImage}
-                    description={project.description}
-                    views={project.views}
-                    likes={project.likes}
-                  />
-                ))}
-
-              </div>
-
-            </div>
-          </div>
+          <Projects projects={projects}/>
         </div>
       </div>
     </>
