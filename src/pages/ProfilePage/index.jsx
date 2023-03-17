@@ -16,13 +16,13 @@ function ProfileScreen(props) {
         { name: 'Paula Pedrita', profilePicture: 'https://via.placeholder.com/150' },
     ]);
     const [activityFeed, setActivityFeed] = useState([
-        { message: 'Started following Jane Doe', timestamp: new Date('2023-02-12T09:00:00Z') },
-        { message: 'Added new project: "React App"', timestamp: new Date('2023-02-11T12:30:00Z') },
-        { message: 'Liked Lais Calderado\'s post', timestamp: new Date('2023-02-10T18:15:00Z') },
+        { message: 'Começou a seguir Jane Doe', timestamp: new Date('2023-02-12T09:00:00Z') },
+        { message: 'Adicionado novo projeto: "React App com Gamification"', timestamp: new Date('2023-02-11T12:30:00Z') },
+        { message: 'Gostou da postagem de Paula Pedrita', timestamp: new Date('2023-02-10T18:15:00Z') },
     ]);
     const [portfolio, setPortfolio] = useState([
-        { name: 'React App', description: 'A web application built with React', imageUrl: 'https://via.placeholder.com/150' },
-        { name: 'Node.js Server', description: 'A simple Node.js server', imageUrl: 'https://via.placeholder.com/150' },
+        { name: 'React App com Gamification', description: 'Uma aplicação web gamificada  construída com React', imageUrl: 'https://res.cloudinary.com/certifier/image/upload/c_scale,w_2000,q_100,f_auto/gamification_ff1e4622b6' },
+        { name: 'Node.js Server', description: 'A simple Node.js server', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc91MLDuxZnB-nct9v3sFdSMgXKHQwSCryEer87f0blsCRGxpxyNAOaQArYZGJTvayrf4&usqp=CAU' },
     ]);
 
     const handleNameChange = (event) => {
@@ -54,7 +54,6 @@ function ProfileScreen(props) {
         <>
             <Navbar />
             <div id="profile" className="profile">
-                <h1>Profile</h1>
                 {isEditing ? (
                     <div className="profile-form">
                         <div className="field">
@@ -115,7 +114,7 @@ function ProfileScreen(props) {
                                 </ul>
                             </div>
                             <div className="profile-details-column">
-                                <h3>Portfolio</h3>
+                                <h3>Projetos</h3>
                                 <ul className="profile-portfolio-list">
                                     {portfolio.map((project, index) => (
                                         <li key={index}>
@@ -129,24 +128,6 @@ function ProfileScreen(props) {
                                 </ul>
                             </div>
                         </div>
-                        <div className="profile-privacy">
-                            <h3>Privacy Settings</h3>
-                            <div className="privacy-options">
-                                <div className="privacy-option">
-                                    <span>Mostrar minha lista de amigos</span>
-                                    <input type="checkbox" checked={true} />
-                                </div>
-                                <div className="className=" privacy-option>
-                                    <span>Show my activity feed:</span>
-                                    <input type="checkbox" checked={true} />
-                                </div>
-                                <div className="privacy-option">
-                                    <span>Show my portfolio:</span>
-                                    <input type="checkbox" checked={true} />
-                                </div>
-                            </div>
-                        </div>
-
                     </>
                 )}
             </div>
@@ -161,8 +142,8 @@ ProfileScreen.propTypes = {
 };
 
 ProfileScreen.defaultProps = {
-    name: 'Nome',
-    bio: 'Bio',
+    name: 'Laís Calderado',
+    bio: 'Aprendendo a gamificar :D',
     profilePicture: 'https://via.placeholder.com/150',
 };
 
