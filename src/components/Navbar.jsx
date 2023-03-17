@@ -22,7 +22,7 @@ const NavBar = () => {
                         <Nav.Link href="/profile">Perfil</Nav.Link>
                     </Nav>
                     <Nav className="me-auto">
-                        <Button type="button" className="btn btn-outline-primary" href="/projects">Criar Projeto</Button>
+                        <Button type="button" className="btn btn-outline-primary-dark" href="/projects">Criar Projeto</Button>
                     </Nav>
                     <Nav>
                         <Form className="form-inline mr-2 mr-sm-0 form-row align-items-center">
