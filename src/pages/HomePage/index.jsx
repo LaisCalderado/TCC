@@ -20,11 +20,13 @@ function showSlides() {
   let firstItemIndex = currentSlide * itemsPerSlide;
   let lastItemIndex = firstItemIndex + itemsPerSlide - 1;
 
-  // Hide all items
-  $('.carousel-item').hide();
+  // Add 'active' class to items in the current slide
+  $('.carousel-item').removeClass('active');
+  $('.carousel-item').slice(firstItemIndex, lastItemIndex + 1).addClass('active');
 
-  // Show items in the current slide
-  $('.carousel-item').slice(firstItemIndex, lastItemIndex + 1).show();
+  // Hide all items and show only items with 'active' class
+  $('.carousel-item').hide();
+  $('.carousel-item.active').show();
 
   // Update slide indicators
   $('.carousel-indicators li').removeClass('active');
@@ -121,7 +123,7 @@ const Project = ({ title, backgroundImage, description, views, likes }) => {
       </div>
     </div>
   );
-}
+};
 
 
 const HomePage = () => {
