@@ -1,36 +1,3 @@
-/* Define as variáveis de cor */
-:root {
-  --primary-color: #8A2BE2;
-  /* Roxo */
-  --secondary-color: #32CD32;
-  /* Verde */
-  --text-color: #333;
-  /* Preto */
-  --background-color: #f2f2f2;
-  /* Cinza claro */
-}
-
-/* Aplica as cores de fundo e texto na página */
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-/* Define o estilo da seção de perfil */
-.profile-details-column {
-  background-color: var(--primary-color);
-  border-radius: 20px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-/* Define o estilo dos títulos das seções */
-.section-title {
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  margin-bottom: 10px;
-}
-
 /* Define o estilo dos ícones da seção de perfil */
 .icon {
   color: var(--secondary-color);
@@ -38,50 +5,10 @@ body {
   margin-right: 10px;
 }
 
-/* Define o estilo dos projetos */
-.project {
-  width: 30%;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: var(--primary-color);
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-/*Titulo e subtitulo*/
-
-#title {
-  font-weight: bold;
-  font-size: 65px;
-}
-
-#sub-title {
-  font-weight: bold;
-  font-size: 25px;
-}
-
-/* Define o estilo dos títulos dos projetos */
-.project-title {
-  font-size: 1.5rem;
-  color: #fff;
-}
-
 /* Define o estilo das descrições dos projetos */
 .project-description {
   font-size: 1rem;
   color: #fff;
-}
-
-/* Define o estilo da lista de projetos */
-.project-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  text-align: center;
-}
-
-/* Define o estilo das estatísticas dos projetos */
-.project-stats {
-  margin-top: 20px;
 }
 
 /* Define o estilo das visualizações dos projetos */
@@ -91,54 +18,15 @@ body {
   margin-right: 20px;
 }
 
-/* Define o estilo dos curtidas dos projetos */
+/* Define o estilo das curtidas dos projetos */
 .project-likes {
   font-size: 0.8rem;
   color: #fff;
 }
 
-/* Define o estilo do botão personalizado */
-.btn-custom {
-  background-color: var(--secondary-color);
-  color: white;
-  border-radius: 20px;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-/* Define o estilo do botão personalizado ao passar o mouse */
-.btn-custom:hover {
-  background-color: #6c63ff;
-}
-
-/* Define o estilo do efeito de hover nos projetos */
-.project:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-}
-
 /* Define o estilo da classe centralizar */
 .centralizard {
   text-align: center;
-}
-
-/* Define o estilo do container da home */
-#container-home {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Define o estilo do fundo do projeto */
-.project-background {
-  height: 150px;
-  background-size: cover;
-  background-position: center;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
 }
 
 /* Define o estilo do título do projeto */
@@ -152,7 +40,7 @@ body {
 /* Define o estilo da descrição do projeto */
 .project-description {
   font-size: 1rem;
-  color: #444;
+  color: #fff;
   margin-bottom: 10px;
 }
 
@@ -165,17 +53,6 @@ body {
   margin: 0 auto;
   max-width: 1200px;
   padding: 20px;
-}
-
-/* Define o estilo do projeto */
-.project {
-  width: 30%;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease-in-out;
 }
 
 /* Define o estilo das estatísticas do projeto */
@@ -198,22 +75,6 @@ body {
   color: #4b0082;
 }
 
-/* Define o estilo do botão personalizado */
-.btn-custom {
-  background-color: #4b0082;
-  color: #fff;
-  border-radius: 20px;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-/* Define o estilo do botão personalizado ao passar o mouse */
-.btn-custom:hover {
-  background-color: #6a5acd;
-}
-
 /* Define o estilo do hover do projeto */
 .project:hover {
   transform: translateY(-5px);
@@ -225,19 +86,9 @@ body {
   text-align: center;
 }
 
-
 /* Define o estilo do título da página */
 .page-title {
   font-size: 2rem;
   color: #4b0082;
   margin-bottom: 20px;
 }
-
-/* Define o estilo do container da home */
-#container-home {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-

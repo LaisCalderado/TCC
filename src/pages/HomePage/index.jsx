@@ -1,52 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/auth";
+import React, { useState, useEffect } from "react";
 import { auth } from "../config/firebase";
-import 'react-alice-carousel/lib/alice-carousel.css';
 import $ from 'jquery';
 
 import Navbar from '../../components/Navbar';
 import Carousel from "../../components/Carousel";
-import Projects  from "../../components/Projects ";
+import Projects from "../../components/Projects ";
 import './style.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const itemsPerSlide = 5;
-let currentSlide = 0;
-
-function showSlides() {
-  let firstItemIndex = currentSlide * itemsPerSlide;
-  let lastItemIndex = firstItemIndex + itemsPerSlide - 1;
-
-  // Add 'active' class to items in the current slide
-  $('.carousel-item').removeClass('active');
-  $('.carousel-item').slice(firstItemIndex, lastItemIndex + 1).addClass('active');
-
-  // Hide all items and show only items with 'active' class
-  $('.carousel-item').hide();
-  $('.carousel-item.active').show();
-
-  // Update slide indicators
-  $('.carousel-indicators li').removeClass('active');
-  $('.carousel-indicators li').eq(currentSlide).addClass('active');
-}
-
-$(document).ready(function () {
-  // Initialize slides
-  showSlides();
-
-  // Handle prev/next slide buttons
-  $('.carousel-control-prev').click(function () {
-    currentSlide = Math.max(currentSlide - 1, 0);
-    showSlides();
-  });
-  $('.carousel-control-next').click(function () {
-    let numItems = $('.carousel-item').length;
-    let lastSlide = Math.floor(numItems / itemsPerSlide);
-    currentSlide = Math.min(currentSlide + 1, lastSlide);
-    showSlides();
-  });
-});
 
 const subjects = [
   {
@@ -107,7 +68,6 @@ const subjects = [
 ];
 
 const HomePage = () => {
-  
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -122,7 +82,6 @@ const HomePage = () => {
     };
   }, []);
 
-
   return (
     <>
       <Navbar />
@@ -134,12 +93,11 @@ const HomePage = () => {
           <h1 className="centralizard" id="title">Projetos de Gameficação</h1>
           <p className="centralizard" id="sub-title">Projetos relacionados ao tema selecionados para você</p>
           <h1 className="centralizard">Welcome to Arcade</h1>
-          <Projects projects={projects}/>
+          <Projects projects={projects} />
         </div>
       </div>
     </>
   );
-
 };
 
-export default HomePage
+export default HomePage;
