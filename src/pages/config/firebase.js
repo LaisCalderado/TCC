@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth"
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDPlHhrai-OYE3YnKdd67CyZb_ula49uKM",
@@ -14,6 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const database = getDatabase(app);
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -22,5 +24,5 @@ onAuthStateChanged(auth, (user) => {
         // usuário não autenticado
     }
 });
-export { auth, onAuthStateChanged, createUserWithEmailAndPassword };
+export { auth, onAuthStateChanged, createUserWithEmailAndPassword, database };
 export const signOut = () => auth.signOut();
