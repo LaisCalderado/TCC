@@ -8,8 +8,8 @@ const Carousel = ({ subjects }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const responsive = {
     0: { items: 1 },
-    600: { items: 2 },
-    1024: { items: 3 },
+    600: { items: 1 },
+    1024: { items: 1 },
   };
 
   const handleSlideChanged = (event) => {
@@ -27,18 +27,13 @@ const Carousel = ({ subjects }) => {
       disableDotsControls={true}
       shouldRenderOnSSR={false}
     >
-      {subjects.map((subject, index) => (
-        <div
-          key={subject.id}
-          className={`custom-carousel-item carousel-item ${
-            activeIndex  === index ? 'active' : ''
-          }`}
-        >
+      {subjects.map((subject) => (
+        <div key={subject.id} className="custom-carousel-item">
           <a href={subject.route}>
             <img
               src={subject.imageSrc}
               alt={subject.title}
-              className="carousel-subject carousel-subject-image"
+              className="carousel-subject"
             />
           </a>
         </div>
