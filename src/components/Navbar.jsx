@@ -6,9 +6,14 @@ import { AuthContext } from '../contexts/auth';
 const NavBar = () => {
 
     const { logout } = useContext(AuthContext);
-    const handleLogout = () => {
-        logout();
-    };
+
+    const handleLogout = async () => {
+        try {
+          await logout();
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -17,12 +22,12 @@ const NavBar = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Para Voce</Nav.Link>
-                        <Nav.Link href="/projects">Meu Projetos</Nav.Link>
+                        <Nav.Link href="/">Para Você</Nav.Link>
+                        <Nav.Link href="/projects">Meus Projetos</Nav.Link>
                         <Nav.Link href="/profile">Perfil</Nav.Link>
                     </Nav>
                     <Nav className="me-auto">
-                        <Button type="button" className="btn btn-outline-primary-dark" href="/projects">Criar Projeto</Button>
+                        <Button type="button" className="btn btn-outline-primary-dark" href="/new-project">Criar Projeto</Button>
                     </Nav>
                     <Nav>
                         <Form className="form-inline mr-2 mr-sm-0 form-row align-items-center">
@@ -33,7 +38,7 @@ const NavBar = () => {
                     <Nav>
                         <NavDropdown title="Perfil" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action </NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <button className="dropdown-item" onClick={handleLogout}>Sair</button>
