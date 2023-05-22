@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app"
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth"
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
@@ -12,7 +12,7 @@ const firebaseConfig = {
     measurementId: "G-0BR9V2EZVQ"
 };
 
-// Initialize Firebase
+// Inicialize o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
@@ -24,5 +24,4 @@ onAuthStateChanged(auth, (user) => {
         // usuário não autenticado
     }
 });
-export { auth, onAuthStateChanged, createUserWithEmailAndPassword, database };
-export const signOut = () => auth.signOut();
+export { auth, onAuthStateChanged, createUserWithEmailAndPassword, database, signOut };
