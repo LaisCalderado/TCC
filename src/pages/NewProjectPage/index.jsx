@@ -4,11 +4,13 @@ import Navbar from "../../components/Navbar";
 import { database, auth } from "../../pages/config/firebase";
 import { ref, push, set, onValue } from "firebase/database";
 
+import SelectField from "../../components/SelectField";
 import ConteudoAplicado from "../../path/ConteudoAplicado";
 import Jogadores from "../../path/Jogadores";
 import Gostam from "../../path/Gostam";
-import Redor from "../../path/aoRedor";
+import AoRedor from "../../path/aoRedor";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./style.css";
 
 const NewProjectPage = () => {
@@ -21,6 +23,7 @@ const NewProjectPage = () => {
     });
     const [userProjects, setUserProjects] = useState([]);
     const [userId, setUserId] = useState("");
+    const [selectedEnvironment, setSelectedEnvironment] = useState("");
 
     useEffect(() => {
         const fetchUserProjects = async () => {
@@ -51,7 +54,8 @@ const NewProjectPage = () => {
     }, [userId]);
 
     const handleOptionChange = (event) => {
-        setSelectedOption(event.target.name);
+        setSelectedOption(event.target.value);
+        setSelectedEnvironment(""); // Limpa a seleção do ambiente ao mudar a opção
     };
 
     const handleCreateProject = (event) => {
@@ -83,7 +87,11 @@ const NewProjectPage = () => {
         }
     };
 
-    const OptionContent = () => {
+    const handleEnvironmentChange = (event) => {
+        setSelectedEnvironment(event.target.value);
+    };
+
+    const renderEnvironmentOptions = () => {
         switch (selectedOption) {
             case "conteudoAplicado":
                 return <ConteudoAplicado />;
@@ -91,12 +99,30 @@ const NewProjectPage = () => {
                 return <Jogadores />;
             case "gostam":
                 return <Gostam />;
-            case "redor":
-                return <Redor />;
+            case "aoRedor":
+                return <AoRedor />;
             default:
                 return null;
         }
     };
+
+
+    const OptionContent = () => {
+        switch (selectedOption) {
+            case "conteúdo-aplicado":
+                return <ConteudoAplicado />;
+            case "Os-seus-jogadores":
+                return <Jogadores />;
+            case "mais-gostam":
+                return <Gostam />;
+            case "seu-redor":
+                return <AoRedor />;
+            default:
+                return null;
+        }
+    };
+
+        
 
     return (
         <>
@@ -119,94 +145,49 @@ const NewProjectPage = () => {
                                         required
                                     />
                                 </div>
-
-                                <div className="form-group mb-3">
-                                    <label className="form-label">Definindo Ambiente</label>
-                                    <div>
-                                        <button
-                                            className={`btn btn-link ${selectedOption === "conteudoAplicado" ? "active" : ""}`}
-                                            name="conteudoAplicado"
-                                            onClick={handleOptionChange}
+                                <div className="o-aside">
+                                    <div className="form-group mb-3">
+                                        <label className="form-label">DEFININDO AMBIENTE</label>
+                                        <select
+                                            className="form-control"
+                                            value={selectedOption}
+                                            onChange={handleOptionChange}
                                         >
-                                            Conteúdo aplicado
-                                        </button>
-                                        <button
-                                            className={`btn btn-link ${selectedOption === "jogadores" ? "active" : ""}`}
-                                            name="jogadores"
-                                            onClick={handleOptionChange}
-                                        >
-                                            Os seus jogadores
-                                        </button>
-                                        <button
-                                            className={`btn btn-link ${selectedOption === "gostam" ? "active" : ""}`}
-                                            name="gostam"
-                                            onClick={handleOptionChange}
-                                        >
-                                            O que mais gostam
-                                        </button>
-                                        <button
-                                            className={`btn btn-link ${selectedOption === "redor" ? "active" : ""}`}
-                                            name="redor"
-                                            onClick={handleOptionChange}
-                                        >
-                                            O que tem o seu redor
-                                        </button>
+                                            <option value="">Selecione uma opção</option>
+                                            <option value="conteúdo-aplicado">Conteúdo aplicado</option>
+                                            <option value="Os-seus-jogadores">Os seus jogadores</option>
+                                            <option value="mais-gostam">O que mais gostam</option>
+                                            <option value="seu-redor">O que tem o seu redor</option>
+                                        </select>
                                     </div>
-                                </div>
+                                    {renderEnvironmentOptions()}
 
+                                    <div className="form-group mb-3">
+                                        <label className="form-label">GAME DESIGN</label>
+                                        <select
+                                            className="form-control"
+                                            value={selectedOption}
+                                            onChange={handleOptionChange}
+                                        >
+                                            <option value="">Selecione uma opção</option>
+                                            <option value="tema">Tema</option>
+                                            <option value="ambiente">Ambiente</option>
+                                            <option value="player">Player</option>
+                                            <option value="desafios">Desafios</option>
+                                        </select>
+                                    </div>
+                                    <label className="form-label">FINALIZAÇÃO</label>
+                                    <div>{/* Adicione o conteúdo da finalização aqui */}</div>
+                                </div>
+                                <div className="form-group mt-3">
+                                    <button type="submit" className="btn btn-primary">
+                                        Criar Novo Projeto
+                                    </button>
+                                </div>
                             </form>
                         </div>
                         <div className="col-md-6">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label>Qual grau?</label>
-                                                <select
-                                                    value={selectedOption}
-                                                    onChange={handleOptionChange}
-                                                    disabled={selectedOption !== ""}
-                                                >
-                                                    <option value="">Escolha uma opção</option>
-                                                    <option value="Ensino fundamental">Ensino fundamental</option>
-                                                    <option value="Ensino médio">Ensino médio</option>
-                                                    <option value="Ensino superior">Ensino superior</option>
-                                                    <option value="Técnico">Técnico</option>
-                                                </select>
-                                            </div>
-                                            <div className="form-group">
-                                                <label> Qual série?</label>
-                                                <select value={selectedOption}
-                                                    onChange={handleOptionChange}
-                                                    disabled={selectedOption !== ""}>
-                                                        <option value="1 Série">1 Série</option>
-                                                        <option value="2 Série">2 Série</option>
-                                                        <option value="3 Série">3 Série</option>
-                                                    </select>
-                                            </div>
-                                            <div className="form-group">
-                                                <label> Qual Disciplina</label>
-                                                <select value={selectedOption}
-                                                    onChange={handleOptionChange}
-                                                    disabled={selectedOption !== ""}
-                                                    >
-                                                        <option value="Matemática">Matemática</option>
-                                                        <option value="Física">Física</option>
-                                                        <option value="Lingua Portuguesa">Língua Portuguesa</option>
-
-                                                    </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <button type="submit" className="btn btn-primary">
-                                                Criar Novo Projeto
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <OptionContent />
-                                </div>
-                            </div>
+                            <OptionContent />
                         </div>
                     </div>
                 </div>
