@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '../../components/Navbar';
 
 const projects = [
   {
@@ -31,18 +32,22 @@ function Project(props) {
   const { project } = props;
   
   return (
-    <div className="project">
-      <div className="project-background" style={{ backgroundImage: `url(${project.imageUrl})` }}></div>
-      <div className="project-info">
-        <h2 className="project-title">{project.title}</h2>
-        <p className="project-description">{project.description}</p>
-        <div className="project-stats">
-          <span className="project-views">{project.views} views</span>
-          <span className="project-likes">{project.likes} likes</span>
+    <>
+    <Navbar>
+      <div className="project">
+        <div className="project-background" style={{ backgroundImage: `url(${project.imageUrl})` }}></div>
+        <div className="project-info">
+          <h2 className="project-title">{project.title}</h2>
+          <p className="project-description">{project.description}</p>
+          <div className="project-stats">
+            <span className="project-views">{project.views} views</span>
+            <span className="project-likes">{project.likes} likes</span>
+          </div>
+          <button className="btn-custom">Ver Projeto</button>
         </div>
-        <button className="btn-custom">Ver Projeto</button>
       </div>
-    </div>
+    </Navbar>
+    </>
   );
 }
 
