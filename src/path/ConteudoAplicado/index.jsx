@@ -18,6 +18,30 @@ const ConteudoAplicado = () => {
     setSelectedDisciplina(event.target.value);
   };
 
+  const handleCreateProject = () => {
+    // Lógica para criar um novo projeto com as escolhas selecionadas
+    console.log("Novo projeto criado:", selectedGrau, selectedSerie, selectedDisciplina);
+  };
+
+  const saveChoicesToDatabase = () => {
+    const newChoices = {
+      selectedGrau,
+      selectedSerie,
+      selectedDisciplina,
+    };
+
+    // Converter o objeto JSON em uma string JSON
+    const jsonString = JSON.stringify(newChoices);
+
+    try {
+      // Salvar a string JSON no banco de dados
+      // (substitua essa lógica com o código adequado para o seu caso)
+      console.log("Escolhas salvas no banco de dados:", jsonString);
+    } catch (error) {
+      console.error("Erro ao salvar as escolhas no banco de dados:", error);
+    }
+  };
+
   return (
     <div>
       <SelectField
@@ -55,6 +79,9 @@ const ConteudoAplicado = () => {
       />
 
       {/* Renderizar outros campos específicos da página ConteudoAplicado aqui */}
+
+      <button onClick={handleCreateProject}>Criar Projeto</button>
+      <button onClick={saveChoicesToDatabase}>Salvar escolhas</button>
     </div>
   );
 };

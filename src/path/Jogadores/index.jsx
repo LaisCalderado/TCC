@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SelectField from "../../components/SelectField";
+import { database } from "../../pages/config/dbConfig";
+import { ref, push, set } from "firebase/database";
 
 const Jogadores = () => {
     const [selectedAgeRange, setSelectedAgeRange] = useState("");
@@ -29,10 +31,29 @@ const Jogadores = () => {
         setSelectedLearningStyle(event.target.value);
     };
 
-
-
     const handleSpecialNeedsChange = (event) => {
         setSelectedSpecialNeeds(event.target.value);
+    };
+
+    const saveChoicesToDatabase = () => {
+        const data = {
+            ageRange: selectedAgeRange,
+            experience: selectedExperience,
+            objectives: selectedObjectives,
+            motivation: selectedMotivation,
+            learningStyle: selectedLearningStyle,
+            specialNeeds: selectedSpecialNeeds,
+        };
+
+        try {
+            const choicesRef = ref(database, "choices");
+            const newChoiceRef = push(choicesRef);
+            set(newChoiceRef, data).then(() => {
+                console.log("Dados salvos no banco de dados com sucesso!");
+            });
+        } catch (error) {
+            console.error("Erro ao salvar os dados no banco de dados:", error);
+        }
     };
 
     return (
@@ -59,59 +80,58 @@ const Jogadores = () => {
                 ]}
             />
 
-
             <SelectField
                 label="Objetivos: Quais são os objetivos dos jogadores ao participar da gamificação?"
                 value={selectedObjectives}
                 onChange={handleObjectivesChange}
                 options={[
                     { label: "Aprender novas habilidades", value: "Aprender novas habilidades" },
-                    { label: "Melhorar o desempenho acadêmico", value: "Melhorar o desempenho acadêmico" },
-                    { label: "Socializar com outros jogadores", value: "Socializar com outros jogadores" },
-                    { label: "Divertir-se e relaxar", value: "Divertir-se e relaxar" },
-                    { label: "Alcançar metas pessoais", value: "Alcançar metas pessoais" },
+                    { label: "Melhorar habilidades existentes", value: "Melhorar habilidades existentes" },
+                    { label: "Motivação/engajamento", value: "Motivação/engajamento" },
+                    { label: "Trabalho em equipe", value: "Trabalho em equipe" },
+                    { label: "Competição", value: "Competição" },
+                    { label: "Outro", value: "Outro" },
                 ]}
             />
 
             <SelectField
-                label="Motivação: O que motiva os jogadores a participar e se envolver na gamificação?"
+                label="Motivação: O que motiva os jogadores a participarem da gamificação?"
                 value={selectedMotivation}
                 onChange={handleMotivationChange}
                 options={[
-                    { label: "Competição e rankings", value: "Competição e rankings" },
-                    { label: "Recompensas e conquistas", value: "Recompensas e conquistas" },
-                    { label: "Colaboração e trabalho em equipe", value: "Colaboração e trabalho em equipe" },
-                    { label: "Autoexpressão e criatividade", value: "Autoexpressão e criatividade" },
-                    { label: "Desafios e superação de obstáculos", value: "Desafios e superação de obstáculos" },
+                    { label: "Recompensas/prêmios", value: "Recompensas/prêmios" },
+                    { label: "Reconhecimento/reputação", value: "Reconhecimento/reputação" },
+                    { label: "Desafios", value: "Desafios" },
+                    { label: "Divertimento/entretenimento", value: "Divertimento/entretenimento" },
+                    { label: "Aprendizado", value: "Aprendizado" },
+                    { label: "Outro", value: "Outro" },
                 ]}
             />
 
             <SelectField
-                label="Estilos de aprendizagem: Como os jogadores preferem aprender e absorver informações?"
+                label="Estilo de aprendizado: Como os jogadores preferem aprender?"
                 value={selectedLearningStyle}
                 onChange={handleLearningStyleChange}
                 options={[
-                    { label: "Visual (imagens e gráficos)", value: "Visual (imagens e gráficos)" },
-                    { label: "Auditivo (áudio e música)", value: "Auditivo (áudio e música)" },
-                    { label: "Cinestésico (experiências práticas)", value: "Cinestésico (experiências práticas)" },
-                    { label: "Leitura e escrita", value: "Leitura e escrita" },
+                    { label: "Visual (através de imagens e gráficos)", value: "Visual (através de imagens e gráficos)" },
+                    { label: "Auditivo (através de áudio e explicações verbais)", value: "Auditivo (através de áudio e explicações verbais)" },
+                    { label: "Cinestésico (através de atividades práticas e experiências)", value: "Cinestésico (através de atividades práticas e experiências)" },
+                    { label: "Leitura/escrita (através de leitura e anotações)", value: "Leitura/escrita (através de leitura e anotações)" },
+                    { label: "Outro", value: "Outro" },
                 ]}
             />
 
-
-
             <SelectField
-                label="Necessidades especiais: Existem necessidades especiais ou requisitos específicos que os jogadores possuem e que devem ser considerados na gamificação?"
+                label="Necessidades especiais: Os jogadores possuem necessidades especiais que devem ser consideradas?"
                 value={selectedSpecialNeeds}
                 onChange={handleSpecialNeedsChange}
                 options={[
-                    { label: "Deficiência visual", value: "Deficiência visual" },
-                    { label: "Deficiência auditiva", value: "Deficiência auditiva" },
-                    { label: "Deficiência motora", value: "Deficiência motora" },
-                    { label: "Transtorno do espectro autista", value: "Transtorno do espectro autista" },
-                    { label: "Outras necessidades especiais", value: "Outras necessidades especiais" },
+                    { label: "Sim", value: "Sim" },
+                    { label: "Não", value: "Não" },
                 ]}
             />
+
+            <button onClick={saveChoicesToDatabase}>Salvar</button>
         </div>
     );
 };
