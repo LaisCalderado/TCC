@@ -36,7 +36,7 @@ const AppRoutes = () =>{
         <Router>
             <AuthProvider>
                 <Routes>
-                    <Route exact path ="login" element={<LoginPage/>}/>
+                    <Route exact path ="/login" element={<LoginPage/>}/>
                     <Route exact path ="/" element={<Private><HomePage/></Private>}/>
                     <Route exact path="/profile" element={<ProfilePage/>}/>
                     <Route exact path="/projects" element={<ProjectsPage/>}/>
