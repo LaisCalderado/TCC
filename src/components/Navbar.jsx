@@ -4,16 +4,15 @@ import { AuthContext } from '../contexts/auth';
 
 
 const NavBar = () => {
-
     const { logout } = useContext(AuthContext);
 
     const handleLogout = async () => {
         try {
-          await logout();
+            await logout();
         } catch (error) {
-          console.log(error.message);
+            console.log(error.message);
         }
-      };
+    };
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -41,7 +40,7 @@ const NavBar = () => {
                             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <button className="dropdown-item" onClick={handleLogout}>Sair</button>
+                            <NavDropdown.Item onClick={handleLogout}>Sair</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
