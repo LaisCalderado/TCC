@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
-import "./styles.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -14,20 +12,25 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            // Realize o login com o email e senha fornecidos
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
+            const response = await axios.post("/api/login", {
+                email: email,
+                password: password,
+            });
 
-            // Redirecione para a página de perfil do usuário atual
-            navigate('/');
-            
+            if (response.data.success) {
+                // Redirecionar para a página de perfil do usuário atual
+                navigate("/");
+            } else {
+                setError(response.data.message);
+            }
         } catch (error) {
-            setError('Erro ao entrar com senha e e-mail! Verifique seu Email e/ou Senha...');
+            console.log(error);
+            setError("Erro ao entrar com senha e e-mail! Verifique seu Email e/ou Senha...");
         }
     };
 
     const handleRegister = () => {
-        navigate('/register');
+        navigate("/register");
     };
 
     return (
