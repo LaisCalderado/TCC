@@ -1,18 +1,14 @@
-import { AuthProvider} from "../src/contexts/auth";
-import { UserProvider} from "../src/contexts/UserContext"
-import './App.css';
-
+import React, { useState } from 'react';
+import { AuthProvider } from './contexts/auth';
 import AppRoutes from './AppRoutes';
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+
   return (
-    <UserProvider>
-      <AuthProvider>
-        <div className="App">
-          <AppRoutes />
-        </div>
-      </AuthProvider>
-    </UserProvider>
+    <AuthProvider value={{ authenticated, setAuthenticated }}>
+      <AppRoutes />
+    </AuthProvider>
   );
 }
 

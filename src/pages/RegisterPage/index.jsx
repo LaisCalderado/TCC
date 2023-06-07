@@ -1,40 +1,38 @@
-import { event } from "jquery";
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import {
-    createUserWithEmailAndPassword,
-    onAuthStateChanged
-} from "../config/firebase";
-import { auth } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import "./styles.css";
 
-
 const RegisterPage = () => {
-
-    const [user, setUser] = useState({});
-    const [nome, setNome] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-    })
-
     const handleSignup = async (event) => {
         event.preventDefault();
+
         try {
-            const userCredential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
+            const response = await axios.post(
+                "http://127.0.0.1:8080/api/users/create/",
+                {
+                    username,
+                    password,
+                    email,
+                }
             );
-            console.log(userCredential.user);
-            navigate('/'); // Redireciona para a página home
+
+            if (response.status === 201) {
+                // Cadastro bem-sucedido, redirecionar ou executar alguma ação
+                navigate("/"); // Redireciona para a página home após o registro bem-sucedido
+            } else {
+                setError("Erro ao criar conta");
+            }
         } catch (error) {
-            setError(error.message);
+            console.error(error.response.data);
+            setError("Erro ao criar conta");
         }
     };
 
@@ -46,12 +44,14 @@ const RegisterPage = () => {
         <div id="register">
             <form className="register-form" onSubmit={handleSignup}>
                 <h1>ARCADE QUESTION</h1>
-                <div className="field" >
-                    <input className="register-input"
-                            type="text" 
-                            placeholder="Nome" 
-                            id="nome" 
-                            value={nome} onChange={(event) => setNome(event.target.value)} 
+                <div className="field">
+                    <input
+                        className="register-input"
+                        type="text"
+                        placeholder="Nome"
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
                 <div className="field">
@@ -74,8 +74,13 @@ const RegisterPage = () => {
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                <button className="register-button" type="submit">Cadastrar</button>
-                <button onClick={handleHome} className="register-button">Voltar</button>
+                <button className="register-button" type="submit">
+                    Cadastrar
+                </button>
+                <button onClick={handleHome} className="register-button">
+                    Voltar
+                </button>
+                {error && <div>{error}</div>}
             </form>
         </div>
     );
