@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
 import SelectField from "../../components/SelectField";
-import { database } from "../../pages/config/dbConfig";
+import { database } from "../../pages/config/firebase";
 import { ref, push } from "firebase/database";
 
 // Criação do contexto

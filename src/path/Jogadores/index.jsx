@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SelectField from "../../components/SelectField";
-import { database } from "../../pages/config/dbConfig";
+import { database } from "../../pages/config/firebase";
 import { ref, push, set } from "firebase/database";
 
 const Jogadores = () => {

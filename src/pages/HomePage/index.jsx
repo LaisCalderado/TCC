@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "../config/firebase";
-import $ from 'jquery';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import Navbar from '../../components/Navbar';
+import Navbar from "../../components/Navbar";
 import Carousel from "../../components/Carousel";
 import Projects from "../../components/Projects ";
-import './style.css';
+import "./style.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -69,18 +69,36 @@ const subjects = [
 
 const HomePage = () => {
   const [projects, setProjects] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // usuário não autenticado, redireciona para a página de login
-        window.location.replace("/login");
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8080/api/projetos/");
+        setProjects(response.data);
+      } catch (error) {
+        console.log("Erro ao buscar projetos:", error);
       }
-    });
-    return () => {
-      unsubscribe();
     };
+
+    fetchProjects();
   }, []);
+
+  const handleLikeProject = async (projectId) => {
+    try {
+      await axios.post(`http://127.0.0.1:8080/api/projetos/${projectId}/like/`);
+      // Atualizar o estado de curtidas do projeto
+      const updatedProjects = projects.map((project) => {
+        if (project.id === projectId) {
+          return { ...project, likes: project.likes + 1 };
+        }
+        return project;
+      });
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.log("Erro ao curtir projeto:", error);
+    }
+  };
 
   return (
     <>
@@ -90,10 +108,14 @@ const HomePage = () => {
           <Carousel subjects={subjects} />
         </div>
         <div id="div-home">
-          <h1 className="centralizard" id="title">Projetos de Gameficação</h1>
-          <p className="centralizard" id="sub-title">Projetos relacionados ao tema selecionados para você</p>
+          <h1 className="centralizard" id="title">
+            Projetos de Gameficação
+          </h1>
+          <p className="centralizard" id="sub-title">
+            Projetos relacionados ao tema selecionados para você
+          </p>
           <h1 className="centralizard">Welcome to Arcade</h1>
-          <Projects projects={projects} />
+          <Projects projects={projects} onLike={handleLikeProject} />
         </div>
       </div>
     </>
