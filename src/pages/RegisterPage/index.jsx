@@ -6,7 +6,6 @@ import "./styles.css";
 
 const RegisterPage = () => {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -16,11 +15,10 @@ const RegisterPage = () => {
 
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8080/api/users/create/",
+                "http://127.0.0.1:8080/users/create/",
                 {
                     username,
                     password,
-                    email,
                 }
             );
 
@@ -37,7 +35,7 @@ const RegisterPage = () => {
     };
 
     const handleHome = () => {
-        navigate('/'); // Redireciona para a página home
+        navigate("/"); // Redireciona para a página home
     };
 
     return (
@@ -52,16 +50,6 @@ const RegisterPage = () => {
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div className="field">
-                    <input
-                        className="register-input"
-                        type="email"
-                        placeholder="Email"
-                        id="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
                     />
                 </div>
                 <div className="field">
