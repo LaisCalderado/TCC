@@ -1,11 +1,33 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from GdsSystem.models import Projetos
+
+from ..models import *
 
 class ProjetosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projetos
         fields = '__all__'
+
+class ConteudosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Conteudos
+        fields = '__all__'
+
+class GrauAplicacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GrauAplicacao
+        fields = '__all__'
+
+class PublicoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Publico
+        fields = '__all__'
+
+class UsuariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = '__all__'
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

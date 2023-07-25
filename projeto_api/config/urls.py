@@ -7,6 +7,10 @@ from .views import UserCreateView
 
 route = routers.DefaultRouter()
 route.register(r'projetos', ProjetosViewsets.ProjetosViewset, basename="Projetos")
+route.register(r'conteudos', ProjetosViewsets.ConteudosViewset, basename="Conteudos")
+route.register(r'graus_aplicacao', ProjetosViewsets.GrauAplicacaoViewset, basename="Graus aplicação")
+route.register(r'publicos', ProjetosViewsets.PublicoViewset, basename="Publicos")
+route.register(r'usuarios', ProjetosViewsets.UsuariosViewset, basename="Usuarios")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
