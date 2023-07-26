@@ -1,8 +1,10 @@
+
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import { database, auth } from "../../pages/config/firebase";
 import { ref, push, set, onValue } from "firebase/database";
+import api from "../../config/api";
 
 import SelectField from "../../components/SelectField";
 import ConteudoAplicado from "../../path/ConteudoAplicado";
@@ -25,7 +27,21 @@ const NewProjectPage = () => {
     const [userId, setUserId] = useState("");
     const [selectedEnvironment, setSelectedEnvironment] = useState("");
 
+    const [graus, setGraus] = useState([]);
+
+
     useEffect(() => {
+
+        api.get('/graus_aplicacao/')
+            .then((res) => {
+                let aux = []
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id })
+                })
+                setGraus([...aux])
+            })
+
+
         const fetchUserProjects = async () => {
             try {
                 const snapshot = await database
@@ -110,7 +126,7 @@ const NewProjectPage = () => {
     const OptionContent = () => {
         switch (selectedOption) {
             case "conteúdo-aplicado":
-                return <ConteudoAplicado />;
+                return <ConteudoAplicado graus={graus} />;
             case "Os-seus-jogadores":
                 return <Jogadores />;
             case "mais-gostam":
@@ -122,73 +138,69 @@ const NewProjectPage = () => {
         }
     };
 
-        
+
 
     return (
         <>
             <Navbar />
-            <div className="container">
+            <div className="container mt-4">
                 <div className="row">
-                    <h1 className="text-center mb-5">Novo Projeto</h1>
-                    <div className="row justify-content-center">
-                        <div className="col-md-6">
-                            <form onSubmit={handleCreateProject}>
-                                <div className="form-group mb-3">
-                                    <label htmlFor="projectName" className="form-label">
-                                        Nome do Projeto
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="projectName"
-                                        placeholder="Digite o nome do projeto"
-                                        required
-                                    />
-                                </div>
-                                <div className="o-aside">
-                                    <div className="form-group mb-3">
-                                        <label className="form-label">DEFININDO AMBIENTE</label>
-                                        <select
-                                            className="form-control"
-                                            value={selectedOption}
-                                            onChange={handleOptionChange}
-                                        >
-                                            <option value="">Selecione uma opção</option>
-                                            <option value="conteúdo-aplicado">Conteúdo aplicado</option>
-                                            <option value="Os-seus-jogadores">Os seus jogadores</option>
-                                            <option value="mais-gostam">O que mais gostam</option>
-                                            <option value="seu-redor">O que tem o seu redor</option>
-                                        </select>
-                                    </div>
-                                    {renderEnvironmentOptions()}
+                    <div className="col-md-6">
+                        <h1 className="text-center mb-4">Novo Projeto</h1>
+                        <form onSubmit={handleCreateProject} className="form">
+                            <div className="form-group mb-3">
+                                <label htmlFor="projectName" className="form-label">
+                                    Nome do Projeto
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="projectName"
+                                    placeholder="Digite o nome do projeto"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mb-3">
+                                <label className="form-label">DEFININDO AMBIENTE</label>
+                                <select
+                                    className="form-control"
+                                    value={selectedOption}
+                                    onChange={handleOptionChange}
+                                >
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="conteúdo-aplicado">Conteúdo aplicado</option>
+                                    <option value="Os-seus-jogadores">Os seus jogadores</option>
+                                    <option value="mais-gostam">O que mais gostam</option>
+                                    <option value="seu-redor">O que tem o seu redor</option>
+                                </select>
+                            </div>
+                            {renderEnvironmentOptions()}
 
-                                    <div className="form-group mb-3">
-                                        <label className="form-label">GAME DESIGN</label>
-                                        <select
-                                            className="form-control"
-                                            value={selectedOption}
-                                            onChange={handleOptionChange}
-                                        >
-                                            <option value="">Selecione uma opção</option>
-                                            <option value="tema">Tema</option>
-                                            <option value="ambiente">Ambiente</option>
-                                            <option value="player">Player</option>
-                                            <option value="desafios">Desafios</option>
-                                        </select>
-                                    </div>
-                                    <label className="form-label">FINALIZAÇÃO</label>
-                                    <div>{/* Adicione o conteúdo da finalização aqui */}</div>
-                                </div>
-                                <div className="form-group mt-3">
-                                    <button type="submit" className="btn btn-primary">
-                                        Criar Novo Projeto
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="col-md-6">
-                            <OptionContent />
-                        </div>
+                            <div className="form-group mb-3">
+                                <label className="form-label">GAME DESIGN</label>
+                                <select
+                                    className="form-control"
+                                    value={selectedOption}
+                                    onChange={handleOptionChange}
+                                >
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="tema">Tema</option>
+                                    <option value="ambiente">Ambiente</option>
+                                    <option value="player">Player</option>
+                                    <option value="desafios">Desafios</option>
+                                </select>
+                            </div>
+                            <label className="form-label">FINALIZAÇÃO</label>
+                            <div>{/* Adicione o conteúdo da finalização aqui */}</div>
+                            <div className="form-group mt-3">
+                                <button type="submit" className="btn btn-primary">
+                                    Criar Novo Projeto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="col-md-6">
+                        <OptionContent />
                     </div>
                 </div>
             </div>
