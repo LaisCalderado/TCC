@@ -18,15 +18,31 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
 
+
+class ConteudoAplicado(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Jogadores(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class AoRedor(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Gostam(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
 class Projetos(models.Model):
-    
     titulo = models.CharField(max_length=225)
     descricao = models.CharField(max_length=225)
     url_imagem = models.CharField(max_length=225, null=True)
-    conteudo = models.ForeignKey(Conteudos, on_delete=models.CASCADE )
+    conteudo = models.ForeignKey(Conteudos, on_delete=models.CASCADE)
     grauAplicacao = models.ForeignKey(GrauAplicacao, on_delete=models.CASCADE)
     publico = models.ForeignKey(Publico, on_delete=models.CASCADE)
 
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-
+    
     create_at = models.DateField(auto_now_add=True)

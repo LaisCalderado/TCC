@@ -11,6 +11,10 @@ route.register(r'conteudos', ProjetosViewsets.ConteudosViewset, basename="Conteu
 route.register(r'graus_aplicacao', ProjetosViewsets.GrauAplicacaoViewset, basename="Graus aplicação")
 route.register(r'publicos', ProjetosViewsets.PublicoViewset, basename="Publicos")
 route.register(r'usuarios', ProjetosViewsets.UsuariosViewset, basename="Usuarios")
+route.register(r'ao_redor', ProjetosViewsets.AoRedorViewSet , basename="aoRedor")
+route.register(r'gostam', ProjetosViewsets.GostamViewSet, basename="Gostam")
+route.register(r'conteudo_aplicado', ProjetosViewsets.ConteudoAplicadoViewSet, basename="conteudoAplicado")
+route.register(r'jogadores', ProjetosViewsets.JogadoresViewSet, basename="Jogadores")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

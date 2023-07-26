@@ -21,3 +21,18 @@ class PublicoViewset(viewsets.ModelViewSet):
 class UsuariosViewset(viewsets.ModelViewSet):
     serializer_class = UsuariosSerializer
     queryset = Usuario.objects.all()
+
+class ConteudoAplicadoViewSet(viewsets.ModelViewSet):
+    serializer_class = ConteudoAplicadoSerializer
+    queryset = ConteudoAplicado.objects.all()
+class AoRedorViewSet(viewsets.ModelViewSet):
+    queryset = AoRedor.objects.all()
+    serializer_class = AoRedorSerializer
+
+class GostamViewSet(viewsets.ModelViewSet):
+    queryset = Gostam.objects.all()
+    serializer_class = GostamSerializer
+
+class JogadoresViewSet(viewsets.ModelViewSet):
+    queryset = Jogadores.objects.all()
+    serializer_class = JogadoresSerializer

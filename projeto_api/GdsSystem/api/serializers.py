@@ -29,6 +29,26 @@ class UsuariosSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ConteudoAplicadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConteudoAplicado
+        fields = '__all__'
+
+class JogadoresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Jogadores
+        fields = '__all__'
+
+class AoRedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AoRedor
+        fields = '__all__'
+
+class GostamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gostam
+        fields = '__all__'
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
