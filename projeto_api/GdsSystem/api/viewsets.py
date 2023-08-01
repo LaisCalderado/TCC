@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .serializers import *
 from ..models import *
+from .serializers import *
 
 class ProjetosViewset(viewsets.ModelViewSet):
     serializer_class = ProjetosSerializer
@@ -13,6 +13,14 @@ class ConteudosViewset(viewsets.ModelViewSet):
 class GrauAplicacaoViewset(viewsets.ModelViewSet):
     serializer_class = GrauAplicacaoSerializer
     queryset = GrauAplicacao.objects.all()
+
+class SeriesViewset(viewsets.ModelViewSet):
+    serializer_class = SeriesSerializer
+    queryset = Series.objects.all()
+
+class DisciplinasViewset(viewsets.ModelViewSet):
+    serializer_class = DisciplinasSerializer
+    queryset = Disciplinas.objects.all()
 
 class PublicoViewset(viewsets.ModelViewSet):
     serializer_class = PublicoSerializer
@@ -36,3 +44,23 @@ class GostamViewSet(viewsets.ModelViewSet):
 class JogadoresViewSet(viewsets.ModelViewSet):
     queryset = Jogadores.objects.all()
     serializer_class = JogadoresSerializer
+
+class RecursosViewSet(viewsets.ModelViewSet):
+    queryset = Recursos.objects.all()
+    serializer_class = RecursosSerializer
+
+class ConfiguracaoEspacoViewSet(viewsets.ModelViewSet):
+    queryset = ConfiguracaoEspaco.objects.all()
+    serializer_class = ConfiguracaoEspacoSerializer
+
+class ProfessorAlunoViewSet(viewsets.ModelViewSet):
+    queryset = ProfessorAluno.objects.all()
+    serializer_class = ProfessorAlunoSerializer
+
+class DisponibilidadeTecViewSet(viewsets.ModelViewSet):
+    queryset = DisponibilidadeTec.objects.all()
+    serializer_class = DisponibilidadeTecSerializer
+
+class NormasRegrasViewSet(viewsets.ModelViewSet):
+    queryset = NormasRegras.objects.all()
+    serializer_class = NormasRegrasSerializer

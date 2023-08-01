@@ -18,6 +18,16 @@ class GrauAplicacaoSerializer(serializers.ModelSerializer):
         model = GrauAplicacao
         fields = '__all__'
 
+class SeriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Series
+        fields = '__all__'
+
+class DisciplinasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disciplinas
+        fields = '__all__'
+
 class PublicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publico
@@ -49,6 +59,30 @@ class GostamSerializer(serializers.ModelSerializer):
         model = Gostam
         fields = '__all__'
 
+class RecursosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recursos
+        fields = '__all__'
+
+class ConfiguracaoEspacoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConfiguracaoEspaco
+        fields = '__all__'
+
+class ProfessorAlunoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessorAluno
+        fields = '__all__'
+
+class DisponibilidadeTecSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DisponibilidadeTec
+        fields = '__all__'
+
+class NormasRegrasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NormasRegras
+        fields = '__all__'
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
