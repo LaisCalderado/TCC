@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SelectField from "../../components/SelectField";
 
-const ConteudoAplicado = () => {
+const ConteudoAplicado = (props) => {
   const [selectedGrau, setSelectedGrau] = useState("");
   const [selectedSerie, setSelectedSerie] = useState("");
   const [selectedDisciplina, setSelectedDisciplina] = useState("");
@@ -48,37 +48,22 @@ const ConteudoAplicado = () => {
         label="Qual Grau?"
         value={selectedGrau}
         onChange={handleGrauChange}
-        options={[
-          { label: "Ensino fundamental", value: "Ensino fundamental" },
-          { label: "Ensino médio", value: "Ensino médio" },
-          { label: "Ensino superior", value: "Ensino superior" },
-          { label: "Técnico", value: "Técnico" },
-        ]}
+        options={props.graus}
       />
 
       <SelectField
         label="Qual Série?"
         value={selectedSerie}
         onChange={handleSerieChange}
-        options={[
-          { label: "1 Série", value: "1 Série" },
-          { label: "2 Série", value: "2 Série" },
-          { label: "3 Série", value: "3 Série" },
-        ]}
+        options={props.series}
       />
 
       <SelectField
         label="Qual Disciplina?"
         value={selectedDisciplina}
         onChange={handleDisciplinaChange}
-        options={[
-          { label: "Matemática", value: "Matemática" },
-          { label: "Física", value: "Física" },
-          { label: "Língua Portuguesa", value: "Língua Portuguesa" },
-        ]}
+        options={props.disciplinas} 
       />
-
-      {/* Renderizar outros campos específicos da página ConteudoAplicado aqui */}
 
       <button onClick={handleCreateProject}>Criar Projeto</button>
       <button onClick={saveChoicesToDatabase}>Salvar escolhas</button>
