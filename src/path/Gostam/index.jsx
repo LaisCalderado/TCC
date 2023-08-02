@@ -6,7 +6,7 @@ import { ref, push } from "firebase/database";
 // Criação do contexto
 const ChoicesContext = createContext();
 
-const Gostam = () => {
+const Gostam = (props) => {
     const [selectedInterests, setSelectedInterests] = useState("");
     const [selectedSkills, setSelectedSkills] = useState("");
     const [selectedPersonality, setSelectedPersonality] = useState("");
@@ -71,7 +71,7 @@ const Gostam = () => {
                 saveChoicesToDatabase,
             }}
         >
-            <div>
+            <div className="conteudo-aplicado-container">
                 <SelectField
                     label="Interesses e preferências: Quais são os interesses e hobbies dos jogadores? Quais tipos de jogos eles gostam?"
                     value={selectedInterests}
