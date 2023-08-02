@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SelectField from "../../components/SelectField";
+import "./style.css"; 
 
 const ConteudoAplicado = (props) => {
   const [selectedGrau, setSelectedGrau] = useState("");
@@ -43,7 +44,7 @@ const ConteudoAplicado = (props) => {
   };
 
   return (
-    <div>
+    <div className="conteudo-aplicado-container"> {/* Adicione uma classe CSS personalizada para o container */}
       <SelectField
         label="Qual Grau?"
         value={selectedGrau}
@@ -62,7 +63,7 @@ const ConteudoAplicado = (props) => {
         label="Qual Disciplina?"
         value={selectedDisciplina}
         onChange={handleDisciplinaChange}
-        options={props.disciplinas} 
+        options={props.disciplinas}
       />
 
       <button onClick={handleCreateProject}>Criar Projeto</button>
