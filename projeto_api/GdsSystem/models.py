@@ -6,6 +6,9 @@ class Conteudos(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
 
+class ConteudoAplicado(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
 class GrauAplicacao(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
@@ -18,6 +21,44 @@ class Disciplinas(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
 
+class Jogadores(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+class EstiloAprendizagem(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Interesses(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Habilidades(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Gostam(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class RecompensasVirtuais(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+    
+class CompeticoesDesafios(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+    
+class AoRedor(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class RecursosFisicos(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Limitacoes(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
 class Publico(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
@@ -27,21 +68,9 @@ class Usuario(models.Model):
     create_at = models.DateField(auto_now_add=True)
 
 
-class ConteudoAplicado(models.Model):
-    nome = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
 
-class Jogadores(models.Model):
-    nome = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
 
-class AoRedor(models.Model):
-    descricao = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
 
-class Gostam(models.Model):
-    descricao = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
 
 class Recursos(models.Model):
     descricao = models.CharField(max_length=225)

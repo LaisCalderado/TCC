@@ -27,7 +27,45 @@ class DisciplinasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disciplinas
         fields = '__all__'
+class JogadoresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Jogadores
+        fields = '__all__'
 
+class EstiloAprendizagemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EstiloAprendizagem
+        fields = '__all__'
+
+class InteressesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interesses
+        fields = '__all__'
+
+class HabilidadesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Habilidades
+        fields = '__all__'
+
+class RecompensasVirtuaisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecompensasVirtuais
+        fields = '__all__'
+
+class CompeticoesDesafiosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompeticoesDesafios
+        fields = '__all__'
+
+class RecursosFisicosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecursosFisicos
+        fields = '__all__'
+
+class LimitacoesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Limitacoes
+        fields = '__all__'
 class PublicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publico
@@ -44,10 +82,6 @@ class ConteudoAplicadoSerializer(serializers.ModelSerializer):
         model = ConteudoAplicado
         fields = '__all__'
 
-class JogadoresSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Jogadores
-        fields = '__all__'
 
 class AoRedorSerializer(serializers.ModelSerializer):
     class Meta:

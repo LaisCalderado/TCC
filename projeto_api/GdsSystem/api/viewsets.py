@@ -22,6 +22,40 @@ class DisciplinasViewset(viewsets.ModelViewSet):
     serializer_class = DisciplinasSerializer
     queryset = Disciplinas.objects.all()
 
+class JogadoresViewSet(viewsets.ModelViewSet):
+    queryset = Jogadores.objects.all()
+    serializer_class = JogadoresSerializer
+
+class EstiloAprendizagemViewSet(viewsets.ModelViewSet):
+    queryset = EstiloAprendizagem.objects.all()
+    serializer_class = EstiloAprendizagemSerializer
+
+class InteressesViewSet(viewsets.ModelViewSet):
+    queryset = Interesses.objects.all()
+    serializer_class = InteressesSerializer
+
+class HabilidadesViewSet(viewsets.ModelViewSet):
+    queryset = Habilidades.objects.all()
+    serializer_class = HabilidadesSerializer
+
+class RecompensasVirtuaisViewSet(viewsets.ModelViewSet):
+    queryset = RecompensasVirtuais.objects.all()
+    serializer_class = RecompensasVirtuaisSerializer
+
+class CompeticoesDesafiosViewSet(viewsets.ModelViewSet):
+    queryset = CompeticoesDesafios.objects.all()
+    serializer_class = CompeticoesDesafiosSerializer
+class AoRedorViewSet(viewsets.ModelViewSet):
+    queryset = AoRedor.objects.all()
+    serializer_class = AoRedorSerializer
+
+class RecursosFisicosViewset(viewsets.ModelViewSet):
+    serializer_class = RecursosFisicosSerializer
+    queryset = RecursosFisicos.objects.all()
+
+class LimitacoesViewset(viewsets.ModelViewSet):
+    serializer_class = LimitacoesSerializer
+    queryset = Limitacoes.objects.all()
 class PublicoViewset(viewsets.ModelViewSet):
     serializer_class = PublicoSerializer
     queryset = Publico.objects.all()
@@ -33,17 +67,11 @@ class UsuariosViewset(viewsets.ModelViewSet):
 class ConteudoAplicadoViewSet(viewsets.ModelViewSet):
     serializer_class = ConteudoAplicadoSerializer
     queryset = ConteudoAplicado.objects.all()
-class AoRedorViewSet(viewsets.ModelViewSet):
-    queryset = AoRedor.objects.all()
-    serializer_class = AoRedorSerializer
 
 class GostamViewSet(viewsets.ModelViewSet):
     queryset = Gostam.objects.all()
     serializer_class = GostamSerializer
 
-class JogadoresViewSet(viewsets.ModelViewSet):
-    queryset = Jogadores.objects.all()
-    serializer_class = JogadoresSerializer
 
 class RecursosViewSet(viewsets.ModelViewSet):
     queryset = Recursos.objects.all()
