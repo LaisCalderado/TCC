@@ -50,7 +50,7 @@ const AoRedor = () => {
     };
 
     return (
-        <div>
+        <div className="conteudo-aplicado-container">
             <SelectField
                 label="Recursos disponíveis: Quais recursos físicos estão disponíveis na sala de aula que podem ser utilizados na gamificação?"
                 value={selectedRecursos}
