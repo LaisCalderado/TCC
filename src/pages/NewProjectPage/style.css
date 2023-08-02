@@ -348,3 +348,30 @@ select {
     background-color: #583fa4;
     border-color: #583fa4;
 }
+
+/* style.css */
+
+.toggle-label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 0;
+    transition: color 0.3s;
+}
+
+.toggle-label:hover {
+    color: #007bff;
+}
+
+.toggle-icon {
+    font-size: 24px;
+    margin-left: 8px;
+    transition: transform 0.3s;
+}
+
+.toggle-icon.minimized {
+    transform: rotate(-180deg);
+}

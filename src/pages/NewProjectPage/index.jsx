@@ -14,7 +14,8 @@ import Select from "react-select";
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsCheckCircle, BsPerson, BsHeart, BsMap } from "react-icons/bs";
+import { BsChevronUp, BsChevronDown, BsCheckCircle, BsPerson, BsHeart, BsMap } from "react-icons/bs";
+import { Collapse } from "react-bootstrap";
 import "./style.css";
 
 const NewProjectPage = () => {
@@ -31,6 +32,10 @@ const NewProjectPage = () => {
     const [isEnvironmentOptionsOpen, setIsEnvironmentOptionsOpen] = useState(true);
     const [showQuadrados, setShowQuadrados] = useState(true);
     const [showEnvironmentOptions, setShowEnvironmentOptions] = useState(true);
+    // State para controlar a exibição das seções
+    const [showDefinindoAmbiente, setShowDefinindoAmbiente] = useState(true);
+    const [showGameDesign, setShowGameDesign] = useState(true);
+    const [showFinalizacao, setShowFinalizacao] = useState(true);
     const [graus, setGraus] = useState([]);
     const [series, setSeries] = useState([]);
     const [disciplinas, setDisciplinas] = useState([]);
@@ -52,7 +57,7 @@ const NewProjectPage = () => {
             .catch((error) => {
                 console.error("Erro ao buscar graus de aplicação:", error);
             });
-            console.log("Dados de graus:", graus);
+        console.log("Dados de graus:", graus);
 
         // Solicitar os séries de aplicação
         api.get('/series/')
@@ -66,7 +71,7 @@ const NewProjectPage = () => {
             .catch((error) => {
                 console.error("Erro ao buscar as séries:", error);
             });
-            console.log("Dados de séries:", series);
+        console.log("Dados de séries:", series);
 
         // Solicitar os disciplinas de aplicação
         api.get('/disciplinas/')
@@ -80,7 +85,7 @@ const NewProjectPage = () => {
             .catch((error) => {
                 console.error("Erro ao buscar as disciplinas:", error);
             });
-            console.log("Dados de disciplinas:", disciplinas);
+        console.log("Dados de disciplinas:", disciplinas);
 
         // Solicitar os conteúdos aplicados
         api.get('/conteudos/')
@@ -171,6 +176,11 @@ const NewProjectPage = () => {
         setSelectedEnvironment("");
     };
 
+    // Funções para alternar a exibição das seções
+    const toggleDefinindoAmbiente = () => setShowDefinindoAmbiente(!showDefinindoAmbiente);
+    const toggleGameDesign = () => setShowGameDesign(!showGameDesign);
+    const toggleFinalizacao = () => setShowFinalizacao(!showFinalizacao);
+
     const handleCreateProject = (event) => {
         event.preventDefault();
 
@@ -227,14 +237,6 @@ const NewProjectPage = () => {
 
         return (
             <div className="form-group mb-3">
-                <label className="form-label">DEFININDO AMBIENTE</label>
-                <button
-                    type="button"
-                    className="btn btn-secondary btn-sm mt-2"
-                    onClick={() => setShowEnvironmentOptions(!showEnvironmentOptions)}
-                >
-                    {showEnvironmentOptions ? "DEFININDO AMBIENTE" : "DEFININDO AMBIENTE"}
-                </button>
                 <div className={`row ${showEnvironmentOptions ? "show-options" : "hide-options"}`}>
                     {options.map((option) => (
                         <div key={option.value} className="col-md-3">
@@ -328,24 +330,70 @@ const NewProjectPage = () => {
                                 />
                             </div>
 
-                            {renderEnvironmentOptions()}
-
+                            {/* Definindo Ambiente */}
                             <div className="form-group mb-3">
-                                <label className="form-label">GAME DESIGN</label>
-                                <select
-                                    className="form-control"
-                                    value={selectedOption}
-                                    onChange={handleOptionChange}
+                                <label
+                                    className="form-label toggle-label"
+                                    onClick={toggleDefinindoAmbiente}
                                 >
-                                    <option value="">Selecione uma opção</option>
-                                    <option value="tema">Tema</option>
-                                    <option value="ambiente">Ambiente</option>
-                                    <option value="player">Player</option>
-                                    <option value="desafios">Desafios</option>
-                                </select>
+                                    DEFININDO AMBIENTE
+                                    {showDefinindoAmbiente ? (
+                                        <BsChevronUp className="toggle-icon" />
+                                    ) : (
+                                        <BsChevronDown className="toggle-icon minimized" />
+                                    )}
+                                </label>
+                                <Collapse in={showDefinindoAmbiente}>
+                                    <div>
+                                        {renderEnvironmentOptions()}
+                                    </div>
+                                </Collapse>
                             </div>
-                            <label className="form-label">FINALIZAÇÃO</label>
-                            <div>{/* Adicione o conteúdo da finalização aqui */}</div>
+
+                            {/* Game Design */}
+                            <div className="form-group mb-3">
+                                <label
+                                    className="form-label toggle-label"
+                                    onClick={toggleGameDesign}
+                                >
+                                    GAME DESIGN
+                                    {showGameDesign ? (
+                                        <BsChevronUp className="toggle-icon" />
+                                    ) : (
+                                        <BsChevronDown className="toggle-icon minimized" />
+                                    )}
+                                </label>
+                                <Collapse in={showGameDesign}>
+                                    <div>
+                                        <select
+                                            className="form-control"
+                                            value={selectedOption}
+                                            onChange={handleOptionChange}
+                                        >
+                                            {/* ... */}
+                                        </select>
+                                    </div>
+                                </Collapse>
+                            </div>
+
+                            {/* Finalização */}
+                            <label
+                                className="form-label toggle-label"
+                                onClick={toggleFinalizacao}
+                            >
+                                FINALIZAÇÃO
+                                {showFinalizacao ? (
+                                    <BsChevronUp className="toggle-icon" />
+                                ) : (
+                                    <BsChevronDown className="toggle-icon minimized" />
+                                )}
+                            </label>
+                            <Collapse in={showFinalizacao}>
+                                <div>
+                                    {/* Adicione o conteúdo da finalização aqui */}
+                                </div>
+                            </Collapse>
+
                             <div className="form-group mt-3">
                                 <button type="submit" className="btn btn-primary">
                                     Criar Novo Projeto
@@ -355,7 +403,6 @@ const NewProjectPage = () => {
                     </div>
                     <div className="col-md-6">
                         <OptionContent />
-                        
                     </div>
                 </div>
             </div>
