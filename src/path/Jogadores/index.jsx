@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SelectField from "../../components/SelectField";
 import { database } from "../../pages/config/firebase";
 import { ref, push, set } from "firebase/database";
+import './style.css';
 
 const Jogadores = () => {
     const [selectedAgeRange, setSelectedAgeRange] = useState("");
@@ -57,7 +58,7 @@ const Jogadores = () => {
     };
 
     return (
-        <div>
+        <div className="conteudo-aplicado-container">
             <SelectField
                 label="Idade: Qual é a faixa etária dos jogadores?"
                 value={selectedAgeRange}
