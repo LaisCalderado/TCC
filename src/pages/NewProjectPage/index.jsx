@@ -4,13 +4,12 @@ import Navbar from "../../components/Navbar";
 import { database, auth } from "../../pages/config/firebase";
 import { ref, push, set } from "firebase/database";
 import api from "../../config/api";
+import Swal from 'sweetalert2'
 
 import ConteudoAplicado from "../../path/ConteudoAplicado";
 import Jogadores from "../../path/Jogadores";
 import Gostam from "../../path/Gostam";
 import AoRedor from "../../path/aoRedor";
-
-import Select from "react-select";
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,25 +19,28 @@ import "./style.css";
 
 const NewProjectPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
-    const [checkboxState, setCheckboxState] = useState({
-        conteudoAplicado: false,
-        jogadores: false,
-        gostam: false,
-        redor: false,
-    });
     const [userProjects, setUserProjects] = useState([]);
     const [userId, setUserId] = useState("");
     const [selectedEnvironment, setSelectedEnvironment] = useState("");
-    const [isEnvironmentOptionsOpen, setIsEnvironmentOptionsOpen] = useState(true);
     const [showQuadrados, setShowQuadrados] = useState(true);
     const [showEnvironmentOptions, setShowEnvironmentOptions] = useState(true);
-    // State para controlar a exibição das seções
     const [showDefinindoAmbiente, setShowDefinindoAmbiente] = useState(true);
     const [showGameDesign, setShowGameDesign] = useState(true);
     const [showFinalizacao, setShowFinalizacao] = useState(true);
+    const [nomeProjeto, setnomeProjeto] = useState("");
+    const [descricaoProjeto, setdescricaoProjeto] = useState("");
+    const [selectedGrau, setSelectedGrau] = useState("");
     const [graus, setGraus] = useState([]);
+    const [selectedSerie, setSelectedSerie] = useState("");
     const [series, setSeries] = useState([]);
+    const [selectedDisciplina, setSelectedDisciplina] = useState("");
     const [disciplinas, setDisciplinas] = useState([]);
+    const [selectedEstiloAprendizagem, setSelectedEstiloAprendizagem] = useState("");
+    const [estiloaprendizagem, setEstiloaprendizagem] = useState([]);
+    const [selectedInteresses, setSelectedInteresses] = useState("");
+    const [interesses, setInteresses] = useState([]);
+    const [selectedHabilidades, setSelectedHabilidades] = useState("");
+    const [habilidades, setHabilidades] = useState([]);
     const [conteudos, setConteudos] = useState([]);
     const [jogadores, setJogadores] = useState([]);
     const [gostam, setGostam] = useState([]);
@@ -113,6 +115,44 @@ const NewProjectPage = () => {
                 console.error("Erro ao buscar jogadores:", error);
             });
 
+        // Solicitar os estilo aprendizagem
+        api.get('/estilo_aprendizagem/')
+            .then((res) => {
+                console.log(res.data)
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.nome, value: item.id });
+                });
+                setEstiloaprendizagem([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar jogadores:", error);
+            });
+
+        api.get('/interesses/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.nome, value: item.id });
+                });
+                setInteresses([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar jogadores:", error);
+            });
+
+        api.get('/habilidades/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.nome, value: item.id });
+                });
+                setHabilidades([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar jogadores:", error);
+            });
+
         // Solicitar os gostos
         api.get('/gostam/')
             .then((res) => {
@@ -181,38 +221,6 @@ const NewProjectPage = () => {
     const toggleGameDesign = () => setShowGameDesign(!showGameDesign);
     const toggleFinalizacao = () => setShowFinalizacao(!showFinalizacao);
 
-    const handleCreateProject = (event) => {
-        event.preventDefault();
-
-        const newProject = {
-            name: event.target.projectName.value,
-            environment: {
-                conteudoAplicado: checkboxState.conteudoAplicado,
-                jogadores: checkboxState.jogadores,
-                gostam: checkboxState.gostam,
-                redor: checkboxState.redor,
-            },
-            grade: selectedOption,
-        };
-
-        try {
-            const userProjectsRef = ref(database, `users/${userId}/projects`);
-            const projectRef = push(userProjectsRef);
-            set(projectRef, newProject)
-                .then(() => {
-                    console.log("Novo projeto criado com sucesso!");
-                })
-                .catch((error) => {
-                    console.error("Erro ao criar novo projeto:", error);
-                });
-        } catch (error) {
-            console.error("Erro ao criar novo projeto:", error);
-        }
-    };
-
-    const handleEnvironmentChange = (event) => {
-        setSelectedEnvironment(event.target.value);
-    };
     const handleEnvironmentOptionChange = (optionValue) => {
         setSelectedOption(optionValue);
         if (optionValue === "conteúdo-aplicado") {
@@ -221,10 +229,6 @@ const NewProjectPage = () => {
             setShowQuadrados(false);
         }
         setSelectedEnvironment("");
-    };
-
-    const handleToggleEnvironmentOptions = () => {
-        setIsEnvironmentOptionsOpen((prevIsOpen) => !prevIsOpen);
     };
 
     const renderEnvironmentOptions = () => {
@@ -285,6 +289,7 @@ const NewProjectPage = () => {
                             </div>
                         </div>
                     ))}
+
                 </div>
 
             </div>
@@ -295,9 +300,14 @@ const NewProjectPage = () => {
     const OptionContent = () => {
         switch (selectedOption) {
             case "conteúdo-aplicado":
-                return <ConteudoAplicado graus={graus} series={series} disciplinas={disciplinas} />;
+                return <ConteudoAplicado graus={graus} series={series} disciplinas={disciplinas} selectedGrau={selectedGrau} setSelectedGrau={setSelectedGrau} 
+                selectedSerie = {selectedSerie} setSelectedSerie={setSelectedSerie} selectedDisciplina={selectedDisciplina} setSelectedDisciplina={setSelectedDisciplina}/>;
+
             case "Os-seus-jogadores":
-                return <Jogadores />;
+                return <Jogadores estiloaprendizagem={estiloaprendizagem} selectedEstiloAprendizagem={selectedEstiloAprendizagem} setSelectedEstiloAprendizagem={setSelectedEstiloAprendizagem} 
+                interesses={interesses} selectedInteresses={selectedInteresses} setSelectedInteresses={setSelectedInteresses} habilidades={habilidades} 
+                selectedHabilidades={selectedHabilidades} setSelectedHabilidades={setSelectedHabilidades} />;
+
             case "mais-gostam":
                 return <Gostam />;
             case "seu-redor":
@@ -306,6 +316,45 @@ const NewProjectPage = () => {
                 return null;
         }
     };
+
+    function criarProjetos() {
+        console.log(selectedGrau)
+        if (nomeProjeto && descricaoProjeto) {
+            let data = {
+                "titulo": nomeProjeto,
+                "descricao": descricaoProjeto,
+                "url_imagem": null,
+                "create_at": "2023-08-02",
+                "conteudo": null,
+                "grauAplicacao": Number(selectedGrau),
+                "series": Number(selectedSerie),
+                "disciplinas": Number(selectedDisciplina),
+                "estilo_aprendizagem": Number(selectedEstiloAprendizagem),
+                "interesses": Number(selectedInteresses),
+                "habilidades": Number(selectedHabilidades),
+                "publico": null,
+                "usuario": null
+            }
+            console.log(data)
+            api.post("/projetos/", data).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso',
+                    text: 'Projeto cadastrado',
+                })
+                setnomeProjeto("") //limpar inputs
+                setdescricaoProjeto("")
+            }).catch((error) => {
+                console.log(error)
+            })
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atênção',
+                text: 'Preencha todos os campos',
+            })
+        }
+    }
 
 
 
@@ -316,8 +365,8 @@ const NewProjectPage = () => {
                 <div className="row">
                     <div className="col-md-6">
                         <h1 className="text-center mb-4">Novo Projeto</h1>
-                        <form onSubmit={handleCreateProject} className="form">
-                            <div className="form-group mb-3">
+                        <div className="form">
+                            <div className="form-group mb-4">
                                 <label htmlFor="projectName" className="form-label">
                                     Nome do Projeto
                                 </label>
@@ -326,7 +375,21 @@ const NewProjectPage = () => {
                                     className="form-control"
                                     id="projectName"
                                     placeholder="Digite o nome do projeto"
-                                    required
+                                    value={nomeProjeto}
+                                    onChange={(e) => setnomeProjeto(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group mb-4">
+                                <label htmlFor="projectName" className="form-label">
+                                    Descrição do Projeto
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="projectName"
+                                    placeholder="Digite o descrição do projeto"
+                                    value={descricaoProjeto}
+                                    onChange={(e) => setdescricaoProjeto(e.target.value)}
                                 />
                             </div>
 
@@ -395,11 +458,11 @@ const NewProjectPage = () => {
                             </Collapse>
 
                             <div className="form-group mt-3">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="btn btn-primary" onClick={criarProjetos}>
                                     Criar Novo Projeto
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div className="col-md-6">
                         <OptionContent />
