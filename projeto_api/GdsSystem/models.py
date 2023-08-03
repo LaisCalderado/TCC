@@ -9,6 +9,7 @@ class Conteudos(models.Model):
 class ConteudoAplicado(models.Model):
     nome = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
+
 class GrauAplicacao(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
@@ -24,6 +25,7 @@ class Disciplinas(models.Model):
 class Jogadores(models.Model):
     nome = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
+
 class EstiloAprendizagem(models.Model):
     nome = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
@@ -67,11 +69,6 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
 
-
-
-
-
-
 class Recursos(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
@@ -96,12 +93,15 @@ class Projetos(models.Model):
     titulo = models.CharField(max_length=225)
     descricao = models.CharField(max_length=225)
     url_imagem = models.CharField(max_length=225, null=True)
-    conteudo = models.ForeignKey(Conteudos, on_delete=models.CASCADE)
-    grauAplicacao = models.ForeignKey(GrauAplicacao, on_delete=models.CASCADE)
-    series = models.ForeignKey(Series, on_delete=models.CASCADE)
-    disciplinas = models.ForeignKey(Disciplinas, on_delete=models.CASCADE)
-    publico = models.ForeignKey(Publico, on_delete=models.CASCADE)
+    conteudo = models.ForeignKey(Conteudos, on_delete=models.CASCADE, null=True)
+    grauAplicacao = models.ForeignKey(GrauAplicacao, on_delete=models.CASCADE, null=True)
+    series = models.ForeignKey(Series, on_delete=models.CASCADE, null=True)
+    disciplinas = models.ForeignKey(Disciplinas, on_delete=models.CASCADE, null=True)
+    estilo_aprendizagem = models.ForeignKey(EstiloAprendizagem, on_delete=models.CASCADE, null=True)
+    interesses = models.ForeignKey(Interesses, on_delete=models.CASCADE, null=True)
+    habilidades = models.ForeignKey(Habilidades, on_delete=models.CASCADE, null=True)
+    publico = models.ForeignKey(Publico, on_delete=models.CASCADE, null=True)
 
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
     
-    create_at = models.DateField(auto_now_add=True)
+    create_at = models.DateField(auto_now_add=True, null=True)
