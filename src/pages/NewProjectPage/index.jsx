@@ -41,6 +41,10 @@ const NewProjectPage = () => {
     const [interesses, setInteresses] = useState([]);
     const [selectedHabilidades, setSelectedHabilidades] = useState("");
     const [habilidades, setHabilidades] = useState([]);
+    const [selectedRecompensasVirtuais, setSelectedRecompensasVirtuais] = useState("");
+    const [recompensasVirtuais, setRecompensasVirtuais] = useState([]);
+    const [selectedCompeticaoDesafios, setSelectedCompeticaoDesafios] = useState("");
+    const [competicaoDesafios, setcompeticaoDesafios] = useState([]);
     const [conteudos, setConteudos] = useState([]);
     const [jogadores, setJogadores] = useState([]);
     const [gostam, setGostam] = useState([]);
@@ -161,6 +165,30 @@ const NewProjectPage = () => {
                     aux.push({ label: item.descricao, value: item.id });
                 });
                 setGostam([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar gostos:", error);
+            });
+
+            api.get('/recompensas_virtuais/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setRecompensasVirtuais([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar gostos:", error);
+            });
+            
+            api.get('/competicoes_desafios/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setcompeticaoDesafios([...aux]);
             })
             .catch((error) => {
                 console.error("Erro ao buscar gostos:", error);
@@ -309,7 +337,10 @@ const NewProjectPage = () => {
                 selectedHabilidades={selectedHabilidades} setSelectedHabilidades={setSelectedHabilidades} />;
 
             case "mais-gostam":
-                return <Gostam />;
+                return <Gostam recompensasVirtuais={recompensasVirtuais} selectedRecompensasVirtuais={selectedRecompensasVirtuais} setSelectedRecompensasVirtuais={setSelectedRecompensasVirtuais} 
+                setRecompensasVirtuais={setRecompensasVirtuais}  competicaoDesafios={competicaoDesafios}  selectedCompeticaoDesafios={selectedCompeticaoDesafios} 
+                setSelectedCompeticaoDesafios={setSelectedCompeticaoDesafios} setcompeticaoDesafios={setcompeticaoDesafios} 
+                />;
             case "seu-redor":
                 return <AoRedor />;
             default:
@@ -332,6 +363,8 @@ const NewProjectPage = () => {
                 "estilo_aprendizagem": Number(selectedEstiloAprendizagem),
                 "interesses": Number(selectedInteresses),
                 "habilidades": Number(selectedHabilidades),
+                "recompensasVirtuais": Number(selectedRecompensasVirtuais),
+                "competicaoDesafios": Number(selectedCompeticaoDesafios),
                 "publico": null,
                 "usuario": null
             }

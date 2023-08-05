@@ -38,13 +38,6 @@ class HabilidadesViewSet(viewsets.ModelViewSet):
     queryset = Habilidades.objects.all()
     serializer_class = HabilidadesSerializer
 
-class RecompensasVirtuaisViewSet(viewsets.ModelViewSet):
-    queryset = RecompensasVirtuais.objects.all()
-    serializer_class = RecompensasVirtuaisSerializer
-
-class CompeticoesDesafiosViewSet(viewsets.ModelViewSet):
-    queryset = CompeticoesDesafios.objects.all()
-    serializer_class = CompeticoesDesafiosSerializer
 class AoRedorViewSet(viewsets.ModelViewSet):
     queryset = AoRedor.objects.all()
     serializer_class = AoRedorSerializer
@@ -71,7 +64,13 @@ class ConteudoAplicadoViewSet(viewsets.ModelViewSet):
 class GostamViewSet(viewsets.ModelViewSet):
     queryset = Gostam.objects.all()
     serializer_class = GostamSerializer
+class RecompensasVirtuaisViewSet(viewsets.ModelViewSet):
+    queryset = RecompensasVirtuais.objects.all()
+    serializer_class = RecompensasVirtuaisSerializer
 
+class CompeticoesDesafiosViewSet(viewsets.ModelViewSet):
+    queryset = CompeticoesDesafios.objects.all()
+    serializer_class = CompeticoesDesafiosSerializer
 
 class RecursosViewSet(viewsets.ModelViewSet):
     queryset = Recursos.objects.all()

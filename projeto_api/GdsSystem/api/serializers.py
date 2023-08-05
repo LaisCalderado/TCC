@@ -47,15 +47,6 @@ class HabilidadesSerializer(serializers.ModelSerializer):
         model = Habilidades
         fields = '__all__'
 
-class RecompensasVirtuaisSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RecompensasVirtuais
-        fields = '__all__'
-
-class CompeticoesDesafiosSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CompeticoesDesafios
-        fields = '__all__'
 
 class RecursosFisicosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -93,6 +84,15 @@ class GostamSerializer(serializers.ModelSerializer):
         model = Gostam
         fields = '__all__'
 
+class RecompensasVirtuaisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecompensasVirtuais
+        fields = '__all__'
+
+class CompeticoesDesafiosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompeticoesDesafios
+        fields = '__all__'
 class RecursosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recursos

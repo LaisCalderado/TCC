@@ -100,6 +100,9 @@ class Projetos(models.Model):
     estilo_aprendizagem = models.ForeignKey(EstiloAprendizagem, on_delete=models.CASCADE, null=True)
     interesses = models.ForeignKey(Interesses, on_delete=models.CASCADE, null=True)
     habilidades = models.ForeignKey(Habilidades, on_delete=models.CASCADE, null=True)
+    recompensasVirtuais = models.ForeignKey(RecompensasVirtuais, on_delete=models.CASCADE, null=True)
+    competicaoDesafios = models.ForeignKey(CompeticoesDesafios, on_delete=models.CASCADE, null=True)
+
     publico = models.ForeignKey(Publico, on_delete=models.CASCADE, null=True)
 
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
