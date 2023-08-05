@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
+import ButtonSubmit from "../../components/ButtonSubmit";
 import { database, auth } from "../../pages/config/firebase";
 import { ref, push, set } from "firebase/database";
 import api from "../../config/api";
@@ -568,9 +569,7 @@ const NewProjectPage = () => {
                             </Collapse>
 
                             <div className="form-group mt-3">
-                                <button type="submit" className="btn btn-primary" onClick={criarProjetos}>
-                                    Criar Novo Projeto
-                                </button>
+                                <ButtonSubmit onClick={criarProjetos}>Criar Novo Projeto</ButtonSubmit>
                             </div>
                         </div>
                     </div>
