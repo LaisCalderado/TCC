@@ -45,6 +45,17 @@ const NewProjectPage = () => {
     const [recompensasVirtuais, setRecompensasVirtuais] = useState([]);
     const [selectedCompeticaoDesafios, setSelectedCompeticaoDesafios] = useState("");
     const [competicaoDesafios, setcompeticaoDesafios] = useState([]);
+    const [selectedRecursos, setSelectedRecursos] = useState("");
+    const [recursos, setRecursos] = useState([]);
+    const [selectedConfiguracaoEspaco, setSelectedConfiguracaoEspaco] = useState("");
+    const [configuracaoespaco, setConfiguracaoespaco] = useState("");
+    const [selectedRelacaoProfessorAluno, setSelectedRelacaoProfessorAluno] = useState("");
+    const [relacaoprofessoraluno, setRelacaoprofessoraluno] = useState([]);
+    const [selectedDisponibilidadeTecnologia, setSelectedDisponibilidadeTecnologia] = useState("");
+    const [disponibilidadetec, setDisponibilidadeTed] = useState([]);
+    const [selectedNormasRegras, setSelectedNormasRegras] = useState("");
+    const [normasregras, setNormasregras] = useState([]);
+
     const [conteudos, setConteudos] = useState([]);
     const [jogadores, setJogadores] = useState([]);
     const [gostam, setGostam] = useState([]);
@@ -170,7 +181,7 @@ const NewProjectPage = () => {
                 console.error("Erro ao buscar gostos:", error);
             });
 
-            api.get('/recompensas_virtuais/')
+        api.get('/recompensas_virtuais/')
             .then((res) => {
                 let aux = [];
                 res.data.map((item) => {
@@ -181,8 +192,8 @@ const NewProjectPage = () => {
             .catch((error) => {
                 console.error("Erro ao buscar gostos:", error);
             });
-            
-            api.get('/competicoes_desafios/')
+
+        api.get('/competicoes_desafios/')
             .then((res) => {
                 let aux = [];
                 res.data.map((item) => {
@@ -202,6 +213,63 @@ const NewProjectPage = () => {
                     aux.push({ label: item.descricao, value: item.id });
                 });
                 setAoRedor([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar ao redor:", error);
+            });
+
+        api.get('/recursos/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setRecursos([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar ao redor:", error);
+            });
+
+        api.get('/configuracao_espaco/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setConfiguracaoespaco([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar ao redor:", error);
+            });
+        api.get('/professor_aluno/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setRelacaoprofessoraluno([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar ao redor:", error);
+            });
+        api.get('/disponibilidade_tec/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setDisponibilidadeTed([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar ao redor:", error);
+            });
+        api.get('/normas_regras/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setNormasregras([...aux]);
             })
             .catch((error) => {
                 console.error("Erro ao buscar ao redor:", error);
@@ -328,21 +396,25 @@ const NewProjectPage = () => {
     const OptionContent = () => {
         switch (selectedOption) {
             case "conteúdo-aplicado":
-                return <ConteudoAplicado graus={graus} series={series} disciplinas={disciplinas} selectedGrau={selectedGrau} setSelectedGrau={setSelectedGrau} 
-                selectedSerie = {selectedSerie} setSelectedSerie={setSelectedSerie} selectedDisciplina={selectedDisciplina} setSelectedDisciplina={setSelectedDisciplina}/>;
+                return <ConteudoAplicado graus={graus} series={series} disciplinas={disciplinas} selectedGrau={selectedGrau} setSelectedGrau={setSelectedGrau}
+                    selectedSerie={selectedSerie} setSelectedSerie={setSelectedSerie} selectedDisciplina={selectedDisciplina} setSelectedDisciplina={setSelectedDisciplina} />;
 
             case "Os-seus-jogadores":
-                return <Jogadores estiloaprendizagem={estiloaprendizagem} selectedEstiloAprendizagem={selectedEstiloAprendizagem} setSelectedEstiloAprendizagem={setSelectedEstiloAprendizagem} 
-                interesses={interesses} selectedInteresses={selectedInteresses} setSelectedInteresses={setSelectedInteresses} habilidades={habilidades} 
-                selectedHabilidades={selectedHabilidades} setSelectedHabilidades={setSelectedHabilidades} />;
+                return <Jogadores estiloaprendizagem={estiloaprendizagem} selectedEstiloAprendizagem={selectedEstiloAprendizagem} setSelectedEstiloAprendizagem={setSelectedEstiloAprendizagem}
+                    interesses={interesses} selectedInteresses={selectedInteresses} setSelectedInteresses={setSelectedInteresses} habilidades={habilidades}
+                    selectedHabilidades={selectedHabilidades} setSelectedHabilidades={setSelectedHabilidades} />;
 
             case "mais-gostam":
-                return <Gostam recompensasVirtuais={recompensasVirtuais} selectedRecompensasVirtuais={selectedRecompensasVirtuais} setSelectedRecompensasVirtuais={setSelectedRecompensasVirtuais} 
-                setRecompensasVirtuais={setRecompensasVirtuais}  competicaoDesafios={competicaoDesafios}  selectedCompeticaoDesafios={selectedCompeticaoDesafios} 
-                setSelectedCompeticaoDesafios={setSelectedCompeticaoDesafios} setcompeticaoDesafios={setcompeticaoDesafios} 
+                return <Gostam recompensasVirtuais={recompensasVirtuais} selectedRecompensasVirtuais={selectedRecompensasVirtuais} setSelectedRecompensasVirtuais={setSelectedRecompensasVirtuais}
+                    setRecompensasVirtuais={setRecompensasVirtuais} competicaoDesafios={competicaoDesafios} selectedCompeticaoDesafios={selectedCompeticaoDesafios}
+                    setSelectedCompeticaoDesafios={setSelectedCompeticaoDesafios} setcompeticaoDesafios={setcompeticaoDesafios}
                 />;
             case "seu-redor":
-                return <AoRedor />;
+                return <AoRedor recursos={recursos} setRecursos={setRecursos} selectedRecursos={selectedRecursos} setSelectedRecursos={setSelectedRecursos} configuracaoespaco={configuracaoespaco}
+                    setConfiguracaoespaco={setConfiguracaoespaco} selectedConfiguracaoEspaco={selectedConfiguracaoEspaco} setSelectedConfiguracaoEspaco={setSelectedConfiguracaoEspaco} 
+                    relacaoprofessoraluno={relacaoprofessoraluno} selectedRelacaoProfessorAluno={selectedRelacaoProfessorAluno} setSelectedRelacaoProfessorAluno={setSelectedRelacaoProfessorAluno}
+                    disponibilidadetec={disponibilidadetec} selectedDisponibilidadeTecnologia={selectedDisponibilidadeTecnologia} setSelectedDisponibilidadeTecnologia={setSelectedDisponibilidadeTecnologia}
+                    normasregras={normasregras} selectedNormasRegras={selectedNormasRegras} setSelectedNormasRegras={setSelectedNormasRegras}  />;
             default:
                 return null;
         }
@@ -365,6 +437,11 @@ const NewProjectPage = () => {
                 "habilidades": Number(selectedHabilidades),
                 "recompensasVirtuais": Number(selectedRecompensasVirtuais),
                 "competicaoDesafios": Number(selectedCompeticaoDesafios),
+                "recursos": Number(selectedRecursos),
+                "configuracaoespaco": Number(selectedConfiguracaoEspaco),
+                "professorAluno": Number(selectedRelacaoProfessorAluno),
+                "disponibilidadeTec": Number(selectedDisponibilidadeTecnologia),
+                "normasRegras": Number(selectedNormasRegras),
                 "publico": null,
                 "usuario": null
             }

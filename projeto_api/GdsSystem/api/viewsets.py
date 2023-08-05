@@ -38,9 +38,6 @@ class HabilidadesViewSet(viewsets.ModelViewSet):
     queryset = Habilidades.objects.all()
     serializer_class = HabilidadesSerializer
 
-class AoRedorViewSet(viewsets.ModelViewSet):
-    queryset = AoRedor.objects.all()
-    serializer_class = AoRedorSerializer
 
 class RecursosFisicosViewset(viewsets.ModelViewSet):
     serializer_class = RecursosFisicosSerializer
@@ -72,6 +69,9 @@ class CompeticoesDesafiosViewSet(viewsets.ModelViewSet):
     queryset = CompeticoesDesafios.objects.all()
     serializer_class = CompeticoesDesafiosSerializer
 
+class AoRedorViewSet(viewsets.ModelViewSet):
+    queryset = AoRedor.objects.all()
+    serializer_class = AoRedorSerializer
 class RecursosViewSet(viewsets.ModelViewSet):
     queryset = Recursos.objects.all()
     serializer_class = RecursosSerializer

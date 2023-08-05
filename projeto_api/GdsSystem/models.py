@@ -53,22 +53,7 @@ class CompeticoesDesafios(models.Model):
 class AoRedor(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
-
-class RecursosFisicos(models.Model):
-    descricao = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
-
-class Limitacoes(models.Model):
-    descricao = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
-class Publico(models.Model):
-    descricao = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
-
-class Usuario(models.Model):
-    nome = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
-
+    
 class Recursos(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
@@ -89,6 +74,22 @@ class NormasRegras(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
 
+class RecursosFisicos(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Limitacoes(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+class Publico(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+class Usuario(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+
+
 class Projetos(models.Model):
     titulo = models.CharField(max_length=225)
     descricao = models.CharField(max_length=225)
@@ -102,7 +103,11 @@ class Projetos(models.Model):
     habilidades = models.ForeignKey(Habilidades, on_delete=models.CASCADE, null=True)
     recompensasVirtuais = models.ForeignKey(RecompensasVirtuais, on_delete=models.CASCADE, null=True)
     competicaoDesafios = models.ForeignKey(CompeticoesDesafios, on_delete=models.CASCADE, null=True)
-
+    recursos = models.ForeignKey(Recursos, on_delete=models.CASCADE, null=True)
+    configuracaoespaco = models.ForeignKey(ConfiguracaoEspaco, on_delete=models.CASCADE, null=True)
+    professorAluno = models.ForeignKey(ProfessorAluno, on_delete=models.CASCADE, null=True)
+    disponibilidadeTec = models.ForeignKey(DisponibilidadeTec, on_delete=models.CASCADE, null=True)
+    normasRegras = models.ForeignKey(NormasRegras, on_delete=models.CASCADE, null=True)
     publico = models.ForeignKey(Publico, on_delete=models.CASCADE, null=True)
 
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)

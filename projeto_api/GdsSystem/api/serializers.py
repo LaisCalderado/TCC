@@ -74,10 +74,6 @@ class ConteudoAplicadoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AoRedorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AoRedor
-        fields = '__all__'
 
 class GostamSerializer(serializers.ModelSerializer):
     class Meta:
@@ -92,6 +88,10 @@ class RecompensasVirtuaisSerializer(serializers.ModelSerializer):
 class CompeticoesDesafiosSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompeticoesDesafios
+        fields = '__all__'
+class AoRedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AoRedor
         fields = '__all__'
 class RecursosSerializer(serializers.ModelSerializer):
     class Meta:
