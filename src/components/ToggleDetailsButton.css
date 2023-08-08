@@ -1,0 +1,30 @@
+/* components/ToggleDetailsButton.css */
+
+/* Estilos para o botão */
+.btn-toggle-details {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Estilos para o botão quando os detalhes estão visíveis */
+.btn-toggle-details.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Estilos para o botão quando os detalhes estão escondidos */
+.btn-toggle-details.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+/* Estilos para o botão quando hover */
+.btn-toggle-details:hover {
+    opacity: 0.8;
+}
