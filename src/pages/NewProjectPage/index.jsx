@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import { database, auth } from "../../pages/config/firebase";
-import { ref, push, set } from "firebase/database";
+import axios from "axios";
 import api from "../../config/api";
 import Swal from 'sweetalert2'
 
@@ -11,10 +11,13 @@ import ConteudoAplicado from "../../path/ConteudoAplicado";
 import Jogadores from "../../path/Jogadores";
 import Gostam from "../../path/Gostam";
 import AoRedor from "../../path/aoRedor";
+import Ambiente from "../../path/Ambiente";
+import Temas from "../../path/Temas";
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsChevronUp, BsChevronDown, BsCheckCircle, BsPerson, BsHeart, BsMap } from "react-icons/bs";
+import { BsChevronUp, BsChevronDown, BsCheckCircle, BsPerson, BsHeart, BsMap, BsPalette, BsTrophy } from "react-icons/bs";
+import { FaHome, FaRegUser } from "react-icons/fa";
 import { Collapse } from "react-bootstrap";
 import "./style.css";
 
@@ -56,11 +59,24 @@ const NewProjectPage = () => {
     const [disponibilidadetec, setDisponibilidadeTed] = useState([]);
     const [selectedNormasRegras, setSelectedNormasRegras] = useState("");
     const [normasregras, setNormasregras] = useState([]);
+    const [selectedTemas, setSelectedTemas] = useState("");
+    const [temas, setTemas] = useState([]);
+    const [selectedAmbiente, setSelectedAmbiente] = useState("");
+    const [ambientes, setAmbientes] = useState([]);
+    const [selectedPlayer, setSelectedPlayer] = useState("");
+    const [players, setPlayers] = useState([]);
+    const [selectedDesafio, setSelectedDesafio] = useState("");
+    const [desafios, setDesafios] = useState([]);
+    const [dados, setDados] = useState(null);
 
     const [conteudos, setConteudos] = useState([]);
     const [jogadores, setJogadores] = useState([]);
     const [gostam, setGostam] = useState([]);
     const [aoRedor, setAoRedor] = useState([]);
+    
+    
+    
+    
 
     useEffect(() => {
         // Solicitar os graus de aplicação
@@ -275,6 +291,17 @@ const NewProjectPage = () => {
             .catch((error) => {
                 console.error("Erro ao buscar ao redor:", error);
             });
+            api.get('/temas/')
+            .then((res) => {
+                let aux = [];
+                res.data.map((item) => {
+                    aux.push({ label: item.descricao, value: item.id });
+                });
+                setTemas([...aux]);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar ao redor:", error);
+            });
 
         const fetchUserProjects = async () => {
             try {
@@ -301,16 +328,38 @@ const NewProjectPage = () => {
         }
 
         return () => unsubscribe();
+
+
     }, [userId]);
 
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-        if (event.target.value === "conteúdo-aplicado") {
-            setShowQuadrados(true);
-        } else {
-            setShowQuadrados(false);
-        }
+    useEffect(() => {
+        // Função para buscar os dados da API do Django
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/projetos/');
+                setDados(response.data);
+            } catch (error) {
+                console.error('Erro ao obter os dados:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    if (!dados) {
+        return <div>Carregando...</div>;
+    }
+
+    const handleConteudoAplicadoOption = () => {
+        setSelectedOption("conteúdo-aplicado");
+        setShowQuadrados(true);
         setSelectedEnvironment("");
+    };
+
+    const handleGameDesignOption = () => {
+        setSelectedOption("game-design");
+        setShowQuadrados(false);
+        setSelectedEnvironment("");
+        toggleGameDesign();
     };
 
     // Funções para alternar a exibição das seções
@@ -321,6 +370,16 @@ const NewProjectPage = () => {
     const handleEnvironmentOptionChange = (optionValue) => {
         setSelectedOption(optionValue);
         if (optionValue === "conteúdo-aplicado") {
+            setShowQuadrados(true);
+        } else {
+            setShowQuadrados(false);
+        }
+        setSelectedEnvironment("");
+    };
+
+    const handleEnvironmentOptionGameDesignChange = (optionValue) => {
+        setSelectedOption(optionValue);
+        if (optionValue === "game-design") {
             setShowQuadrados(true);
         } else {
             setShowQuadrados(false);
@@ -356,30 +415,22 @@ const NewProjectPage = () => {
         );
     };
 
-    const GameDesignOptions = ({ selectedOption, handleOptionChange }) => {
+    const GameDesignOptions = () => {
         const options = [
-            { value: "tema", label: "Tema", icon: <BsCheckCircle size={40} /> },
-            { value: "ambiente", label: "Ambiente", icon: <BsPerson size={40} /> },
-            { value: "player", label: "Player", icon: <BsHeart size={40} /> },
-            { value: "desafios", label: "Desafios", icon: <BsMap size={40} /> },
+            { value: "tema", label: "Tema", icon: <BsPalette size={40} /> },
+            { value: "ambiente", label: "Ambiente", icon: <FaHome size={40} /> },
+            { value: "player", label: "Player", icon: <FaRegUser size={40} /> },
+            { value: "desafios", label: "Desafios", icon: <BsTrophy size={40} /> },
         ];
 
         return (
             <div className="form-group mb-3">
-                <label className="form-label">GAME DESIGN</label>
-                <button
-                    type="button"
-                    className="btn btn-secondary btn-sm mt-2"
-                    onClick={() => setShowEnvironmentOptions(!showEnvironmentOptions)}
-                >
-                    {showEnvironmentOptions ? "GAME DESIGN" : "GAME DESIGN"}
-                </button>
                 <div className={`row ${showEnvironmentOptions ? "show-options" : "hide-options"}`}>
                     {options.map((option) => (
                         <div key={option.value} className="col-md-3">
                             <div
                                 className={`quadrado-image option ${selectedOption === option.value ? "selected" : ""}`}
-                                onClick={() => GameDesignOptions(option.value)}
+                                onClick={() => handleEnvironmentOptionGameDesignChange(option.value)}
                             >
                                 <div className="icon-container">{option.icon}</div>
                                 {option.label}
@@ -388,7 +439,6 @@ const NewProjectPage = () => {
                     ))}
 
                 </div>
-
             </div>
         );
     };
@@ -412,10 +462,14 @@ const NewProjectPage = () => {
                 />;
             case "seu-redor":
                 return <AoRedor recursos={recursos} setRecursos={setRecursos} selectedRecursos={selectedRecursos} setSelectedRecursos={setSelectedRecursos} configuracaoespaco={configuracaoespaco}
-                    setConfiguracaoespaco={setConfiguracaoespaco} selectedConfiguracaoEspaco={selectedConfiguracaoEspaco} setSelectedConfiguracaoEspaco={setSelectedConfiguracaoEspaco} 
+                    setConfiguracaoespaco={setConfiguracaoespaco} selectedConfiguracaoEspaco={selectedConfiguracaoEspaco} setSelectedConfiguracaoEspaco={setSelectedConfiguracaoEspaco}
                     relacaoprofessoraluno={relacaoprofessoraluno} selectedRelacaoProfessorAluno={selectedRelacaoProfessorAluno} setSelectedRelacaoProfessorAluno={setSelectedRelacaoProfessorAluno}
                     disponibilidadetec={disponibilidadetec} selectedDisponibilidadeTecnologia={selectedDisponibilidadeTecnologia} setSelectedDisponibilidadeTecnologia={setSelectedDisponibilidadeTecnologia}
-                    normasregras={normasregras} selectedNormasRegras={selectedNormasRegras} setSelectedNormasRegras={setSelectedNormasRegras}  />;
+                    normasregras={normasregras} selectedNormasRegras={selectedNormasRegras} setSelectedNormasRegras={setSelectedNormasRegras} />;
+
+            case "tema":
+                return <Temas temas={temas} setTemas={setTemas} selectedTemas={selectedTemas} setSelectedTemas={setSelectedTemas}/>
+
             default:
                 return null;
         }
@@ -429,7 +483,6 @@ const NewProjectPage = () => {
                 "descricao": descricaoProjeto,
                 "url_imagem": null,
                 "create_at": "2023-08-02",
-                "conteudo": null,
                 "grauAplicacao": Number(selectedGrau),
                 "series": Number(selectedSerie),
                 "disciplinas": Number(selectedDisciplina),
@@ -539,13 +592,7 @@ const NewProjectPage = () => {
                                 </label>
                                 <Collapse in={showGameDesign}>
                                     <div>
-                                        <select
-                                            className="form-control"
-                                            value={selectedOption}
-                                            onChange={handleOptionChange}
-                                        >
-                                            {/* ... */}
-                                        </select>
+                                        {GameDesignOptions()}
                                     </div>
                                 </Collapse>
                             </div>
