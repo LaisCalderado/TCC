@@ -1,38 +1,24 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
+import ButtonDelete from "../../components/ButtonDelete";
+import LikeButton from "../../components/LikeButton";
+import ToggleDetailsButton from "../../components/ToggleDetailsButton";
+
+import api from "../../config/api";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./style.css";
 
-const projects = [
-  {
-    id: 1,
-    title: "Projeto 1",
-    description: "Primeiro Projeto",
-    views: 10,
-    likes: 5,
-    imageUrl: "https://picsum.photos/id/100/200/300",
-  },
-  {
-    id: 2,
-    title: "Projeto 2",
-    description: "Segundo Projeto",
-    views: 20,
-    likes: 8,
-    imageUrl: "https://picsum.photos/id/200/200/300",
-  },
-  {
-    id: 3,
-    title: "Projeto 3",
-    description: "Terceiro Projeto",
-    views: 30,
-    likes: 12,
-    imageUrl: "https://picsum.photos/id/300/200/300",
-  },
-];
 
 const Project = ({ project, onDelete, onLike }) => {
-  const { id, title, description, views, likes, imageUrl } = project;
+  const { id, titulo, descricao, views, likes, create_at, url_imagem, conteudo,
+    grauAplicacao, series, disciplinas, estilo_aprendizagem, interesses, habilidades,
+    recompensasVirtuais, competicaoDesafios, recursos, configuracaoespaco,
+    professorAluno, disponibilidadeTec, normasRegras } = project;
+  //console.log(project.series);
   const [liked, setLiked] = useState(false);
+  const [showFullInfo, setShowFullInfo] = useState(false);
 
   const handleLike = () => {
     if (liked) {
@@ -44,145 +30,93 @@ const Project = ({ project, onDelete, onLike }) => {
     }
   };
 
+  const toggleShowFullInfo = (props) => {
+    setShowFullInfo(!showFullInfo);
+  };
+
 
   return (
-    <>
-      <div className="project">
-        <div
-          className="project-image"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-        />
-        <div className="project-content">
-          <h2>{title}</h2>
-          <p>{description}</p>
-          <p>Views: {views}</p>
-          <div className="like-buttons">
-            <button
-              className={`like-button ${liked ? "liked" : ""}`}
-              onClick={handleLike}
-            >
-              {liked ? "Unlike" : "Like"}
-            </button>
-          </div>
-          <p>Likes: {likes}</p>
-          <button onClick={() => onDelete(id)}>Deletar Projeto</button>
+    <div className="card mb-4">
+      <div className="card-img-top project-image" style={{ backgroundImage: `url(${project.url_imagem})` }} />
+      <div className="card-body project-content">
+        <h2 className="card-title">{project.titulo}</h2>
+        <p>{project.series}</p>
+        <p className="card-text">{project.descricao}</p>
+        {showFullInfo ? <p>{project.descricao}</p> : null}
+
+        <div className="like-buttons">
+          <LikeButton liked={liked} handleLike={handleLike} />
+          <ToggleDetailsButton showFullInfo={showFullInfo} toggleShowFullInfo={toggleShowFullInfo} />
+          <ButtonDelete projetoId={id} onDelete={onDelete} />
         </div>
+        {showFullInfo ? (
+          <>
+            <p>Likes: {project.likes}</p>
+            <p>Data de criação: {project.create_at}</p>
+            <p>Conteúdo: {project.conteudo}</p>
+            <p>Grau de aplicação: {project.grauAplicacao}</p>
+            <p>Series: {project.series}</p>
+            <p>Disciplinas: {project.disciplinas}</p>
+            <p>Estilo de aprendizagem: {project.estilo_aprendizagem}</p>
+            <p>Interesses: {project.interesses}</p>
+            <p>Habilidades: {project.habilidades}</p>
+            <p>Recompensas Virtuais: {project.recompensasVirtuais}</p>
+            <p>Competição/Desafios: {project.competicaoDesafios}</p>
+            <p>Recursos: {project.recursos}</p>
+            <p>Configuração de espaço: {project.configuracaoespaco}</p>
+            <p>Professor/Aluno: {project.professorAluno}</p>
+            <p>Disponibilidade Técnica: {project.disponibilidadeTec}</p>
+            <p>Normas/Regras: {project.normasRegras}</p>
+            {/* E assim por diante */}
+          </>
+        ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
-
 const ProjectsPage = () => {
-  const [projectsList, setProjectsList] = useState(projects);
+  const [projectsList, setProjectsList] = useState([]);
   const [newProjectTitle, setNewProjectTitle] = useState("");
   const [newProjectDescription, setNewProjectDescription] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [showFullProjectInfo, setShowFullProjectInfo] = useState(false);
   const [recommendedProjects, setRecommendedProjects] = useState([]);
 
-  const handleDeleteProject = (id) => {
-    const updatedProjectsList = projectsList.filter(
-      (project) => project.id !== id
-    );
-    setProjectsList(updatedProjectsList);
-  };
 
-  const handleLikeProject = (id, isLiked) => {
-    const updatedProjectsList = projectsList.map((project) => {
-      if (project.id === id) {
-        if (isLiked) {
-          return {
-            ...project,
-            likes: project.likes + 1,
-          };
-        } else {
-          return {
-            ...project,
-            likes: project.likes - 1,
-          };
-        }
-      }
-      return project;
-    });
-    setProjectsList(updatedProjectsList);
-  };
-
-  const handleDislikeProject = (id) => {
-    const updatedProjectsList = projectsList.map((project) => {
-      if (project.id === id) {
-        return {
-          ...project,
-          dislikes: project.dislikes + 1,
-        };
-      }
-      return project;
-    });
-    setProjectsList(updatedProjectsList);
+  const toggleShowFullProjectInfo = () => {
+    setShowFullProjectInfo(!showFullProjectInfo);
   };
 
   useEffect(() => {
-    // Algoritmo de recomendação
-    const recommended = projectsList.filter((project) => project.likes > 0);
-    setRecommendedProjects(recommended);
-  }, [projectsList]);
-
-  const handleCreateProject = (event) => {
-    event.preventDefault();
-
-    const newProject = {
-      id: Date.now(),
-      title: newProjectTitle,
-      description: newProjectDescription,
-      views: 0,
-      likes: 0,
-      dislikes: 0,
-      imageUrl: "https://picsum.photos/200/300",
-    };
-
-    const updatedProjectsList = [...projectsList, newProject];
-    setProjectsList(updatedProjectsList);
-    setNewProjectTitle("");
-    setNewProjectDescription("");
-    setShowForm(false);
-  };
+    console.log(localStorage.getItem('user'))
+    let id = localStorage.getItem('user_id')
+    // Buscar projetos da API
+    api.get(`/projetos/?usuario=${id}`)
+      .then((res) => {
+        setProjectsList(res.data); // Supondo que a API retorna um array de projetos
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar projetos:", error);
+      });
+  }, []);
 
   return (
     <>
       <Navbar />
-      <div className="ProjectsPage">
-        <h1>Meus Projetos</h1>
-        <div className="projects-list">
+      <div className="ProjectsPage container ">
+        <h1 className="mt-3 ">Meus Projetos</h1>
+        <div className="row justify-content-center">
           {projectsList.map((project) => (
-            <Project
-              key={project.id}
-              project={project}
-              onDelete={handleDeleteProject}
-              onLike={handleLikeProject}
-            />
-          ))}
-          {!showForm && (
-            <div className="project create">
-              <Link to="/new-project">
-                <span>+</span>
-                <p>Criar novo Projeto</p>
-              </Link>
+            <div key={project.id} className="col-lg-3">
+              <Project project={project} />
             </div>
-          )}
-        </div>
-
-        <h2>Projetos Recomendados</h2>
-        <div className="recommended-projects">
-          {recommendedProjects.map((project) => (
-            <Project
-              key={project.id}
-              project={project}
-              onDelete={handleDeleteProject}
-              onLike={handleLikeProject}
-              onDislike={handleDislikeProject}
-            />
           ))}
         </div>
       </div>
+      <Link className="btn btn-primary mt-3 justify-content-center" to="/new-project">
+        Criar Projeto
+      </Link>
     </>
   );
 };

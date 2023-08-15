@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../config/api";
 
 import Navbar from "../../components/Navbar";
 import Carousel from "../../components/Carousel";
@@ -72,7 +72,15 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProjects = async () => {
+
+    api.get('/projetos/')
+    .then((res)=>{
+      console.log(res.data);
+      setProjects(res.data)
+    })
+
+
+    /*const fetchProjects = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8080/api/projetos/");
         setProjects(response.data);
@@ -81,11 +89,11 @@ const HomePage = () => {
       }
     };
 
-    fetchProjects();
+    fetchProjects();*/
   }, []);
 
   const handleLikeProject = async (projectId) => {
-    try {
+    /*try {
       await axios.post(`http://127.0.0.1:8080/api/projetos/${projectId}/like/`);
       // Atualizar o estado de curtidas do projeto
       const updatedProjects = projects.map((project) => {
@@ -97,7 +105,7 @@ const HomePage = () => {
       setProjects(updatedProjects);
     } catch (error) {
       console.log("Erro ao curtir projeto:", error);
-    }
+    }*/
   };
 
   return (
@@ -114,7 +122,7 @@ const HomePage = () => {
           <p className="centralizard" id="sub-title">
             Projetos relacionados ao tema selecionados para você
           </p>
-          <h1 className="centralizard">Welcome to Arcade</h1>
+          <h1 className="centralizard">Welcome to GDS </h1>
           <Projects projects={projects} onLike={handleLikeProject} />
         </div>
       </div>
