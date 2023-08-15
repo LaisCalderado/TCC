@@ -6,6 +6,21 @@ class ProjetosViewset(viewsets.ModelViewSet):
     serializer_class = ProjetosSerializer
     queryset = Projetos.objects.all()
 
+class ProfileViewset(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+   
+    # para filtrar por id do user
+    def get_queryset(self):
+        # Obtém o valor do parâmetro 'user' da URL
+        id_user = self.request.query_params.get('user', None)
+        if id_user:
+            # Filtra os Perfils por 'user' caso seja fornecido na URL
+            queryset = Profile.objects.filter(user=id_user)
+        else:
+            # Caso 'user' não seja fornecido, retorna todos os produtos
+            queryset = Profile.objects.all()
+        return queryset
+
 class ConteudosViewset(viewsets.ModelViewSet):
     serializer_class = ConteudosSerializer
     queryset = Conteudos.objects.all()
@@ -50,13 +65,18 @@ class PublicoViewset(viewsets.ModelViewSet):
     serializer_class = PublicoSerializer
     queryset = Publico.objects.all()
 
-class UsuariosViewset(viewsets.ModelViewSet):
-    serializer_class = UsuariosSerializer
-    queryset = Usuario.objects.all()
 
 class ConteudoAplicadoViewSet(viewsets.ModelViewSet):
     serializer_class = ConteudoAplicadoSerializer
     queryset = ConteudoAplicado.objects.all()
+
+class TemasViewSet(viewsets.ModelViewSet):
+    serializer_class = TemasSerializer
+    queryset = Temas.objects.all()
+
+class PerguntaViewSet(viewsets.ModelViewSet):
+    serializer_class = PerguntaSerializer
+    queryset = Pergunta.objects.all()
 
 class GostamViewSet(viewsets.ModelViewSet):
     queryset = Gostam.objects.all()

@@ -1,108 +1,76 @@
-#register {
-  font-size: 14px;
-  background-image: linear-gradient(45deg, #9fd1d2, #e366e5);
+/* Estilos para o container principal */
+.register-container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 0 2rem;
-  width: 100%;
-  position: relative;
+  background-image: linear-gradient(45deg, #9fd1d2, #e366e5);
 }
 
-#register:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-color: #f1f1f1;
-  transform: translate(10px, 10px);
-  filter: blur(40px);
-}
-
+/* Estilos para o formulário de registro */
 .register-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f1f1f1;
-  width: 100%;
-  max-width: 480px;
+  width: 150%;
+  max-width: 550px;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.register-input {
-  font-size: 14px;
+/* Estilos para o título */
+.register-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #480148;
+}
+
+/* Estilos para os campos de entrada */
+.register-field {
   margin: 1rem 0;
+  width: 100%;
+}
+
+.register-input {
+  width: 100%;
   padding: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border: none;
   border-radius: 0.5rem;
   background-color: #fff;
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
+/* Estilos para os botões */
 .register-button {
-  font-size: 14px;
   width: 100%;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   padding: 1rem;
-  background-color: #800080;
+  background-color: #a792d2;
   color: #fff;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.register-button-secondary {
+  background-color: transparent;
+  color: #a792d2;
+  border: 2px solid #a792d2;
 }
 
 .register-button:hover {
-  background-color: #6a006a;
+  background-color: #c26ac2;
   transform: translateY(-2px);
 }
 
-#home-button {
-  font-size: 14px;
-  width: 100%;
-  margin: 1rem 0;
-  padding: 1rem;
-  background-color: transparent;
-  color: #800080;
-  border: 2px solid #800080;
-  border-radius: 0.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#home-button:hover {
-  background-color: #800080;
-  color: #fff;
-}
-
-#register .field {
-  padding-bottom: 0.5rem;
-}
-
-#register .field label {
-  font-size: 14px;
-  display: block;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-#register .field input {
-  width: 100%;
-}
-
-#register .actions {
-  font-size: 14px;
-  text-align: center;
+/* Estilos para mensagens de erro */
+.register-error {
   margin-top: 1rem;
+  color: red;
+  font-size: 0.9rem;
 }

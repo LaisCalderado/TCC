@@ -3,7 +3,7 @@ from django.urls import path, include
 
 from rest_framework import routers
 from GdsSystem.api import viewsets as ProjetosViewsets
-from .views import UserCreateView
+from .views import UserCreateView, CustomTokenObtainPairView
 
 route = routers.DefaultRouter()
 route.register(r'projetos', ProjetosViewsets.ProjetosViewset, basename="Projetos")
@@ -17,7 +17,6 @@ route.register(r'habilidades', ProjetosViewsets.HabilidadesViewSet, basename="Ha
 route.register(r'recursos_fisicos', ProjetosViewsets.RecompensasVirtuaisViewSet, basename="Recursos fisicos")
 route.register(r'limitacoes', ProjetosViewsets.LimitacoesViewset, basename="Limitacoes")
 route.register(r'publicos', ProjetosViewsets.PublicoViewset, basename="Publicos")
-route.register(r'usuarios', ProjetosViewsets.UsuariosViewset, basename="Usuarios")
 route.register(r'ao_redor', ProjetosViewsets.AoRedorViewSet , basename="aoRedor")
 route.register(r'gostam', ProjetosViewsets.GostamViewSet, basename="Gostam")
 route.register(r'recompensas_virtuais', ProjetosViewsets.RecompensasVirtuaisViewSet, basename="Recompensas virtuais")
@@ -29,9 +28,13 @@ route.register(r'configuracao_espaco', ProjetosViewsets.ConfiguracaoEspacoViewSe
 route.register(r'professor_aluno', ProjetosViewsets.ProfessorAlunoViewSet, basename="ProfessorAluno")
 route.register(r'disponibilidade_tec', ProjetosViewsets.DisponibilidadeTecViewSet, basename="DisponibilidadeTec")
 route.register(r'normas_regras', ProjetosViewsets.NormasRegrasViewSet, basename="NormasRegras")
+route.register(r'temas', ProjetosViewsets.TemasViewSet, basename="Temas")
+route.register(r'pergunta', ProjetosViewsets.PerguntaViewSet, basename="Pergunta")
+route.register(r'perfils', ProjetosViewsets.ProfileViewset, basename="Perfils")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(route.urls)),
     path('users/create/', UserCreateView.as_view(), name="user_create"),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
 ]

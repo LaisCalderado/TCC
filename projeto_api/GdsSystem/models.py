@@ -1,6 +1,30 @@
 from django.db import models
-
 # Create your models here.
+
+# para o profile
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+class Usuario(models.Model):
+    nome = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Outros campos do perfil podem ser adicionados aqui
+    bio = models.TextField()
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 
 class Conteudos(models.Model):
     descricao = models.CharField(max_length=225)
@@ -81,13 +105,24 @@ class RecursosFisicos(models.Model):
 class Limitacoes(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
+
+class Temas(models.Model):
+    descricao = models.CharField(max_length=225)
+    create_at = models.DateField(auto_now_add=True)
+    
 class Publico(models.Model):
     descricao = models.CharField(max_length=225)
     create_at = models.DateField(auto_now_add=True)
 
-class Usuario(models.Model):
-    nome = models.CharField(max_length=225)
-    create_at = models.DateField(auto_now_add=True)
+
+
+class Pergunta(models.Model):
+    tema = models.CharField(max_length=100)
+    pergunta = models.TextField()
+    resposta = models.TextField()
+
+    def __str__(self):
+        return f"{self.tema}: {self.pergunta}"
 
 
 class Projetos(models.Model):
@@ -110,6 +145,6 @@ class Projetos(models.Model):
     normasRegras = models.ForeignKey(NormasRegras, on_delete=models.CASCADE, null=True)
     publico = models.ForeignKey(Publico, on_delete=models.CASCADE, null=True)
 
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     
     create_at = models.DateField(auto_now_add=True, null=True)
