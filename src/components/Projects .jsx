@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Projects.css"; // importando o CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Projects = () => {
   const [projectList, setProjectList] = useState([
@@ -76,28 +77,34 @@ const Projects = () => {
   };
 
   return (
-    <div className="projects">
-      <div className="project-cards">
+    <div className="container projects">
+      <div className="row project-cards">
         {projectList.map((project) => (
-          <div className="project-card" key={project.id}>
-            <img src={project.imageSrc} alt={project.title} />
-            <div className="project-details">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <div className="project-stats">
-                <p>Views: {project.views}</p>
-                <p>Likes: {project.likes}</p>
-              </div>
-              <div className="project-actions">
-                <Link to={project.route} className="view-button">
-                  Visualizar Projeto
-                </Link>
-                <button
-                  className={`like-button ${project.liked ? "liked" : ""}`}
-                  onClick={() => handleLike(project.id)}
-                >
-                  {project.liked ? "Unlike" : "Like"}
-                </button>
+          <div className="col-md-4" key={project.id}>
+            <div className="card project-card">
+              <img
+                src={project.imageSrc}
+                alt={`${project.title} Thumbnail`}
+                className="card-img-top"
+              />
+              <div className="card-body project-details">
+                <h3 className="card-title">{project.title}</h3>
+                <p className="card-text">{project.description}</p>
+                <div className="project-stats">
+                  <p>Views: {project.views}</p>
+                  <p>Likes: {project.likes}</p>
+                </div>
+                <div className="project-actions">
+                  <Link to={project.route} className="btn btn-primary view-button">
+                    Abrir Projeto
+                  </Link>
+                  <button
+                    className={`btn btn-secondary like-button ${project.liked ? "liked" : ""}`}
+                    onClick={() => handleLike(project.id)}
+                  >
+                    {project.liked ? "Unlike" : "Like"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

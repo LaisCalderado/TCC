@@ -1,3 +1,9 @@
+:root {
+  --primary-color: #a792d2;
+  --primary-color-dark: #a792d2;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
 .projects {
   padding: 50px;
 }
@@ -17,7 +23,7 @@
 .project-card {
   margin: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px var(--shadow-color);
   overflow: hidden;
 }
 
@@ -55,7 +61,8 @@
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #2e6da4;
+  width: 100px; /* Defina a largura fixa dos botões */
+  background-color: var(--primary-color);
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
@@ -64,5 +71,5 @@
 
 .project-details .like-button:hover,
 .project-details .view-button:hover {
-  background-color: #1e4d7a;
+  background-color: var(--primary-color-dark);
 }

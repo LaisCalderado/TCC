@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = React.createContext();
 
@@ -8,71 +7,31 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      const token = localStorage.getItem("token");
+  const login = (username, password) => {
+    // Simule o processo de login bem-sucedido
+    // Por exemplo, pode ser verificado no servidor aqui
+    // Em vez de chamar o endpoint usando axios, vamos simular o login
+    if (username === "usuario" && password === "senha") {
+      // Atualize outras informações do usuário, se necessário
+      // setCurrentUser(user);
 
-      if (token) {
-        setAuthenticated(true);
-        // Atualize outras informações do usuário, se necessário
-        // setCurrentUser(user);
-      } else {
-        setAuthenticated(false);
-        setCurrentUser(null);
-      }
-
-      setLoading(false);
-    };
-
-    checkAuthStatus();
-  }, []);
-
-  const login = async (username, password) => {
-    try {
-      const response = await axios.post("http://127.0.0.1:8080/api/token/", {
-        username,
-        password,
-      });
-
-      const { status, data } = response;
-
-      if (status === 200) {
-        const token = data.access;
-
-        // Armazena o token no local storage
-        localStorage.setItem("token", token);
-
-        // Define o cabeçalho personalizado no Axios
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-        setAuthenticated(true);
-        // Atualize outras informações do usuário, se necessário
-        // setCurrentUser(user);
-
-        // Redireciona para a página após o login bem-sucedido
-        // navigate("/");
-      } else {
-        // Ocorreu um erro durante o login
-      }
-    } catch (error) {
+      // Redireciona para a página após o login bem-sucedido
+      navigate("/home");
+    } else {
       // Ocorreu um erro durante o login
     }
   };
 
-  const logout = () => {
-    // Remova o token do local storage
-    localStorage.removeItem("token");
-
-    // Limpe o cabeçalho personalizado no Axios
-    delete axios.defaults.headers.common["Authorization"];
-
-    setAuthenticated(false);
+  // Lógica para efetuar o logout do usuário
+  const logout = async () => {
+    // Implemente a lógica para limpar os dados de autenticação e deslogar o usuário
+    // Exemplo: remover o token do armazenamento local ou da sessão
     setCurrentUser(null);
-
-    // Redirecione para a página de login ou página inicial
-    //navigate("/login");
+    navigate("/login");
   };
+
 
   return (
     <AuthContext.Provider

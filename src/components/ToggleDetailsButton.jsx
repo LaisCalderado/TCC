@@ -6,7 +6,7 @@ import "./ToggleDetailsButton.css"; // Importe o arquivo de estilo CSS
 const ToggleDetailsButton = ({ showFullInfo, toggleShowFullInfo }) => {
     return (
         <button
-            className={`btn btn-toggle-details ${showFullInfo ? "btn-danger" : "btn-primary"} btn-sm btn-block`}
+            className={`btn ${showFullInfo ? "btn-danger" : "btn-primary"} mt-3 btn-block`}
             onClick={toggleShowFullInfo}
         >
             {showFullInfo ? "Esconder Detalhes" : "Ver Detalhes"}
