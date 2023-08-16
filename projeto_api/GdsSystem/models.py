@@ -13,8 +13,11 @@ class Usuario(models.Model):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Outros campos do perfil podem ser adicionados aqui
-    bio = models.TextField()
+    #avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.user.username
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):

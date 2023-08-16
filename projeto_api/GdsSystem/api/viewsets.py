@@ -1,13 +1,15 @@
 from rest_framework import viewsets
 from ..models import *
 from .serializers import *
+from GdsSystem.api import serializers
+from GdsSystem import models
 
 class ProjetosViewset(viewsets.ModelViewSet):
     serializer_class = ProjetosSerializer
     queryset = Projetos.objects.all()
 
 class ProfileViewset(viewsets.ModelViewSet):
-    serializer_class = ProfileSerializer
+    serializer_class = serializers.ProfileSerializer
    
     # para filtrar por id do user
     def get_queryset(self):
@@ -15,10 +17,10 @@ class ProfileViewset(viewsets.ModelViewSet):
         id_user = self.request.query_params.get('user', None)
         if id_user:
             # Filtra os Perfils por 'user' caso seja fornecido na URL
-            queryset = Profile.objects.filter(user=id_user)
+            queryset = models.Profile.objects.filter(user=id_user)
         else:
             # Caso 'user' não seja fornecido, retorna todos os produtos
-            queryset = Profile.objects.all()
+            queryset = models.Profile.objects.all()
         return queryset
 
 class ConteudosViewset(viewsets.ModelViewSet):
