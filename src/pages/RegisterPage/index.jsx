@@ -62,7 +62,7 @@ const RegisterPage = () => {
                 <button className="register-button" type="button" onClick={handleRegister}>
                     Cadastrar
                 </button>
-                <button onClick={() => navigate("/login")} className="register-button register-button-secondary">
+                <button onClick={() => navigate("/")} className="register-button register-button-secondary">
                     Voltar para a Página Inicial
                 </button>
             </form>

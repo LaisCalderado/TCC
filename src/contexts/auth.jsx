@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     // Implemente a lógica para limpar os dados de autenticação e deslogar o usuário
     // Exemplo: remover o token do armazenamento local ou da sessão
     setCurrentUser(null);
-    navigate("/login");
+    navigate("/");
   };
 
 
