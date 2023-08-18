@@ -6,7 +6,20 @@ from GdsSystem import models
 
 class ProjetosViewset(viewsets.ModelViewSet):
     serializer_class = ProjetosSerializer
-    queryset = Projetos.objects.all()
+    
+    def get_queryset(self):
+        # Obtém o valor do parâmetro 'user' da URL
+        id_user = self.request.query_params.get('user', None)
+        try: # caso aconteca alguma passagem de parametro com tipos diferentes 
+            if id_user:
+                # Filtra os Perfils por 'user' caso seja fornecido na URL
+                queryset = models.Projetos.objects.filter(usuario=id_user)
+            else:
+                # Caso 'user' não seja fornecido, retorna todos os produtos
+                queryset = models.Projetos.objects.all()
+        except Exception:
+                queryset = []
+        return queryset
 
 class ProfileViewset(viewsets.ModelViewSet):
     serializer_class = serializers.ProfileSerializer
