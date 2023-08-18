@@ -8,7 +8,7 @@ from GdsSystem import models
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password', 'create_at']
+        fields = ['username', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
