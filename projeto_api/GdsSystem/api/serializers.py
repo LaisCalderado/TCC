@@ -149,6 +149,18 @@ class PerguntaSerializer(serializers.ModelSerializer):
 class ProjetosSerializer(serializers.ModelSerializer):
     i_grauAplicacao = GrauAplicacaoSerializer(source='grauAplicacao', read_only=True)
     i_series = SeriesSerializer(source='series', read_only=True)
+    i_disciplinas = DisciplinasSerializer(source='disciplinas', read_only=True)
+    i_estilo_aprendizagem = EstiloAprendizagemSerializer(source='estilo_aprendizagem', read_only=True)
+    i_interesses = InteressesSerializer(source='interesses', read_only=True)
+    i_habilidades = HabilidadesSerializer(source='habilidades', read_only=True)
+    i_recompensasVirtuais = RecompensasVirtuaisSerializer(source='recompensasVirtuais', read_only=True)
+    i_competicaoDesafios = CompeticoesDesafiosSerializer(source='competicaoDesafios', read_only=True)
+    i_recursos = RecursosSerializer(source='recursos', read_only=True)
+    i_configuracaoespaco = ConfiguracaoEspacoSerializer(source='configuracaoespaco', read_only=True)
+    i_professorAluno = ProfessorAlunoSerializer(source='professorAluno', read_only=True)
+    i_disponibilidadeTec = DisponibilidadeTecSerializer(source='disponibilidadeTec', read_only=True)
+    i_normasRegras = NormasRegrasSerializer(source='normasRegras', read_only=True)
+    
     class Meta:
         model = Projetos
         fields = '__all__'

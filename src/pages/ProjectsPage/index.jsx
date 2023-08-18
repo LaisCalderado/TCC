@@ -96,18 +96,18 @@ const Project = ({ project, onLike, reloadProjetos, setReloadProjetos }) => {
             <p>Data de criação: {project.create_at}</p>
             <p>Conteúdo: {project.conteudo}</p>
             <p>Grau de aplicação: {project.i_grauAplicacao ? project.i_grauAplicacao.descricao : ""}</p>
-            <p>Series: {project.series}</p>
-            <p>Disciplinas: {project.disciplinas}</p>
-            <p>Estilo de aprendizagem: {project.estilo_aprendizagem}</p>
-            <p>Interesses: {project.interesses}</p>
-            <p>Habilidades: {project.habilidades}</p>
-            <p>Recompensas Virtuais: {project.recompensasVirtuais}</p>
-            <p>Competição/Desafios: {project.competicaoDesafios}</p>
-            <p>Recursos: {project.recursos}</p>
-            <p>Configuração de espaço: {project.configuracaoespaco}</p>
-            <p>Professor/Aluno: {project.professorAluno}</p>
-            <p>Disponibilidade Técnica: {project.disponibilidadeTec}</p>
-            <p>Normas/Regras: {project.normasRegras}</p>
+            <p>Series: {project.i_series ? project.i_series.descricao : ""}</p>
+            <p>Disciplinas: {project.i_disciplinas ? project.i_disciplinas.descricao : ""}</p>
+            <p>Estilo de aprendizagem: {project.i_estilo_aprendizagem ? project.i_estilo_aprendizagem.descricao : ""}</p>
+            <p>Interesses: {project.i_interesses ? project.i_interesses.descricao : ""}</p>
+            <p>Habilidades: {project.i_habilidades ? project.i_habilidades.descricao : ""}</p>
+            <p>Recompensas Virtuais: {project.i_recompensasVirtuais ? project.i_recompensasVirtuais.descricao : ""}</p>
+            <p>Competição/Desafios: {project.i_competicaoDesafios ? project.i_competicaoDesafios.descricao : ""}</p>
+            <p>Recursos: {project.i_recursos ? project.i_recursos.descricao : ""}</p>
+            <p>Configuração de espaço: {project.i_configuracaoespaco ? project.i_configuracaoespaco.descricao : ""}</p>
+            <p>Professor/Aluno: {project.i_professorAluno ? project.i_professorAluno.descricao : ""}</p>
+            <p>Disponibilidade Técnica: {project.i_disponibilidadeTec ? project.i_disponibilidadeTec.descricao : ""}</p>
+            <p>Normas/Regras: {project.i_normasRegras ? project.i_normasRegras.descricao : ""}</p>
             {/* E assim por diante */}
           </>
         ) : null}
