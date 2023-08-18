@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
-import ButtonDelete from "../../components/ButtonDelete";
+import Swal from "sweetalert2";
 import LikeButton from "../../components/LikeButton";
 import ToggleDetailsButton from "../../components/ToggleDetailsButton";
 
@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./style.css";
 
 
-const Project = ({ project, onDelete, onLike }) => {
+const Project = ({ project, onLike, reloadProjetos, setReloadProjetos }) => {
   const { id, titulo, descricao, views, likes, create_at, url_imagem, conteudo,
     grauAplicacao, series, disciplinas, estilo_aprendizagem, interesses, habilidades,
     recompensasVirtuais, competicaoDesafios, recursos, configuracaoespaco,
@@ -34,6 +34,45 @@ const Project = ({ project, onDelete, onLike }) => {
     setShowFullInfo(!showFullInfo);
   };
 
+  const deletarProjeto = () => {
+    // Verifique se o usuário realmente deseja excluir o projeto
+    Swal.fire({
+      title: "Tem certeza?",
+      text: "Esta ação não poderá ser desfeita!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Faça a requisição para o backend para remover o projeto do banco de dados
+        console.log(id)
+        api
+          .delete(`/projetos/${id}/`)
+          .then(() => {
+            // Se a requisição for bem sucedida, atualize a lista de projetos do usuário
+            setReloadProjetos(!reloadProjetos)
+            Swal.fire({
+              title: "Deletado!",
+              text: "O projeto foi deletado com sucesso.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            console.error("Erro ao deletar projeto:", error);
+            Swal.fire({
+              title: "Erro!",
+              text:
+                "Ocorreu um erro ao deletar o projeto. Por favor, tente novamente mais tarde.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
+
 
   return (
     <div className="card mb-4">
@@ -47,14 +86,16 @@ const Project = ({ project, onDelete, onLike }) => {
         <div className="like-buttons">
           <LikeButton liked={liked} handleLike={handleLike} />
           <ToggleDetailsButton showFullInfo={showFullInfo} toggleShowFullInfo={toggleShowFullInfo} />
-          <ButtonDelete projetoId={id} onDelete={onDelete} />
+          <button className="btn btn-danger mt-3" onClick={deletarProjeto}>
+            Deletar Projeto
+          </button>
         </div>
         {showFullInfo ? (
           <>
             <p>Likes: {project.likes}</p>
             <p>Data de criação: {project.create_at}</p>
             <p>Conteúdo: {project.conteudo}</p>
-            <p>Grau de aplicação: {project.grauAplicacao}</p>
+            <p>Grau de aplicação: {project.i_grauAplicacao ? project.i_grauAplicacao.descricao : ""}</p>
             <p>Series: {project.series}</p>
             <p>Disciplinas: {project.disciplinas}</p>
             <p>Estilo de aprendizagem: {project.estilo_aprendizagem}</p>
@@ -82,7 +123,7 @@ const ProjectsPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [showFullProjectInfo, setShowFullProjectInfo] = useState(false);
   const [recommendedProjects, setRecommendedProjects] = useState([]);
-
+  const [reloadProjetos, setReloadProjetos] = useState(false);
 
   const toggleShowFullProjectInfo = () => {
     setShowFullProjectInfo(!showFullProjectInfo);
@@ -92,14 +133,14 @@ const ProjectsPage = () => {
     console.log(localStorage.getItem('user'))
     let id = localStorage.getItem('user_id')
     // Buscar projetos da API
-    api.get(`/projetos/?usuario=${id}`)
+    api.get(`/projetos/?user=${id}`)
       .then((res) => {
         setProjectsList(res.data); // Supondo que a API retorna um array de projetos
       })
       .catch((error) => {
         console.error("Erro ao buscar projetos:", error);
       });
-  }, []);
+  }, [reloadProjetos]);
 
   return (
     <>
@@ -109,7 +150,8 @@ const ProjectsPage = () => {
         <div className="row justify-content-center">
           {projectsList.map((project) => (
             <div key={project.id} className="col-lg-3">
-              <Project project={project} />
+              <Project project={project} reloadProjetos={reloadProjetos} setReloadProjetos={setReloadProjetos}/>
+
             </div>
           ))}
         </div>
