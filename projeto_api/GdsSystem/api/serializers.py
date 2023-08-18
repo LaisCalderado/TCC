@@ -40,11 +40,6 @@ class GrauAplicacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = GrauAplicacao
         fields = '__all__'
-class ProjetosSerializer(serializers.ModelSerializer):
-    #grauAplicacao = GrauAplicacaoSerializer(source='grauAplicacao', read_only=True)
-    class Meta:
-        model = Projetos
-        fields = '__all__'
 
 class SeriesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -150,4 +145,10 @@ class TemasSerializer(serializers.ModelSerializer):
 class PerguntaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pergunta
+        fields = '__all__'
+class ProjetosSerializer(serializers.ModelSerializer):
+    i_grauAplicacao = GrauAplicacaoSerializer(source='grauAplicacao', read_only=True)
+    i_series = SeriesSerializer(source='series', read_only=True)
+    class Meta:
+        model = Projetos
         fields = '__all__'
